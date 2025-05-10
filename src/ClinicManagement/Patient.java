@@ -1,46 +1,13 @@
 package ClinicManagement;
 
-public class Patient extends User
+public class Patient extends User 
 {
-    private String patientID;
-    private String patientName;
-    private String patientNumber;
-    private String gender;
-    private int age;
 
-    Patient ()
+    Patient(String patientID,String patientName,String patientNumber,String gender,int age)
     {
-        this.patientID=patientID;
-        this.patientName=patientName;
-        this.patientNumber=patientNumber;
-        this.gender=gender;
-        this.age=age;
+        super(patientID, patientName, patientNumber, gender, age);
     }
 
-    public String getPatientID()
-    {
-        return patientID;
-    }
-
-    public String getPatientName()
-    {
-        return patientName;
-    }
-
-    public String getPatientNumber()
-    {
-        return patientNumber;
-    }
-
-    public String getGender()
-    {
-        return gender;
-    }
-
-    public int getAge()
-    {
-        return age;
-    }
 
     @Override
     public void displayDetails()
@@ -52,5 +19,6 @@ public class Patient extends User
         System.out.println("Gender : " + gender);
 
     }
-}
 
+
+}

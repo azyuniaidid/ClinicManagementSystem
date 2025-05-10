@@ -54,7 +54,7 @@ public class Admin {
         return medicalHistories;
     }
 
-    public ArrayList<Billing> getAllbills(){
+    public ArrayList<Billing> getAllBills(){
         return billings;
     }
 }

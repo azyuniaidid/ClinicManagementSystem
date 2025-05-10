@@ -12,7 +12,7 @@ public abstract class User
         this.phoneNumber=phoneNumber;
     }
 
-    public String getPatientName()
+    public String getName()
     {
         return name;
     }

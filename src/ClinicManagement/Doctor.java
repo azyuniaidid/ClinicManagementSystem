@@ -2,43 +2,41 @@ package ClinicManagement;
 
 public class Doctor extends User {
 
-  private String doc_name;
-  private String doc_id;
-  private String doc_number;
-  private String availabiity;
+  private String doctorID;
+  private String specialization;
   private double chgperappt; 
 
-  Doctor(String doc_name,String doc_id,String doc_number,String availability,double chgperappt )
+  Doctor(String name,String doctorID,String phoneNumber,String specialization,double chgperappt )
     {
         super(name, phoneNumber);
-        this.patientID=patientID;
-        this.gender=gender;
-        this.age=age;
+        this.doctorID = doctorID;
+        this.specialization = specialization;
+        this.chgperappt = chgperappt;
     }
 
-    public String getPatientID()
+    public String getdoctorID()
     {
-        return patientID;
+        return doctorID;
     }
 
-    public String getGender()
+    public String getSpecialization()
     {
-        return gender;
+        return specialization;
     }
 
-    public int getAge()
+    public double getChgperappt()
     {
-        return age;
+        return chgperappt;
     }
 
     @Override
     public void displayDetails()
     {
-        System.out.println("Patient ID : " + patientID);
-        System.out.println("Patient Name : " + name);
-        System.out.println("Patient Phone Number : " + phoneNumber);
-        System.out.println("Patient Age : " + age);
-        System.out.println("Gender : " + gender);
+        System.out.println("Doctor ID : " + doctorID);
+        System.out.println("Doctor Name : " + name);
+        System.out.println("Doctor Phone Number : " + phoneNumber);
+        System.out.println("Doctor Specialization : " + specialization);
+        System.out.println("Charge per appointment : " + chgperappt);
 
     }
     

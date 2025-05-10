@@ -8,38 +8,39 @@ public class Doctor extends User {
   private String availabiity;
   private double chgperappt; 
 
-  public Doctor(String username, String password, String doc_name, String doc_id, String doc_number, String availability, double chgperappt){
-    super(username, password);
-    this.doc_name = doc_name;
-    this.doc_id = doc_id;
-    this.doc_number = doc_number;
-    this.availability = availability;
-    this.chgperappt = chgperappt;
-  }
-
-  public void viewMedicalHistory(ArrayList[] medicalHistory, String patient_id){
-    System.out.println("Medical history for patient id : "+patient_id);
-    for (String history : medicalHistory){
-      System.out.println(history);
+  Doctor(String doc_name,String doc_id,String doc_number,String availability,double chgperappt )
+    {
+        super(name, phoneNumber);
+        this.patientID=patientID;
+        this.gender=gender;
+        this.age=age;
     }
-  }
 
-  public void viewAppointment(ArrayList[] appointments, String patient_id){
-    System.out.println("Appointments for patient id : "+patient_id);
-    for (String appointment : appointments){
-      System.out.println(appointment);
+    public String getPatientID()
+    {
+        return patientID;
     }
-  }
 
-  public void updatePatientsVisit(String patient_id, String visitDetail){
-    System.out.println("Updating visit details for patient id : "+patient_id);
-    System.out.println("New visit details : "+visitDetails);
-  }
+    public String getGender()
+    {
+        return gender;
+    }
 
-  public void updatePatientPrescription(String patient_id, String prescriptionDetails){
-    System.out.println("Updating prescription for Patient ID: " + patientId);
-    System.out.println("New Prescription Details: " + prescriptionDetails);
-  }
+    public int getAge()
+    {
+        return age;
+    }
+
+    @Override
+    public void displayDetails()
+    {
+        System.out.println("Patient ID : " + patientID);
+        System.out.println("Patient Name : " + name);
+        System.out.println("Patient Phone Number : " + phoneNumber);
+        System.out.println("Patient Age : " + age);
+        System.out.println("Gender : " + gender);
+
+    }
     
 }
 

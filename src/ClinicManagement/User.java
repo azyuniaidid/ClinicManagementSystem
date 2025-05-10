@@ -2,25 +2,25 @@ package ClinicManagement;
 
 public abstract class User
 {
-    
-    protected String patientName;
-    protected String patientNumber;
-    
-    User (String patientName,String patientNumber)
+
+    protected String name;
+    protected String phoneNumber;
+
+    User (String name,String phoneNumber)
     {
-        this.patientName=patientName;
-        this.patientNumber=patientNumber;
-    }
-    
-    public String getPatientName()
-    {
-        return patientName;
+        this.name=name;
+        this.phoneNumber=phoneNumber;
     }
 
-    public String getPatientNumber()
+    public String getPatientName()
     {
-        return patientNumber;
+        return name;
     }
-    
+
+    public String getPhoneNumber()
+    {
+        return phoneNumber;
+    }
+
     public abstract void displayDetails();
 }

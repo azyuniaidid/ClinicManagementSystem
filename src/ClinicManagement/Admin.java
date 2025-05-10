@@ -18,23 +18,23 @@ public class Admin {
         billings = new ArrayList<>();
     }
 
-    public void AddPatient(Patient newPatient){
+    public void addPatient(Patient newPatient){
         patients.add(newPatient);
     }
 
-    public void AddDoctor(Doctor newDoctor){
+    public void addDoctor(Doctor newDoctor){
         doctors.add(newDoctor);
     }
 
-    public void AddAppointment(Appointment appnt){
+    public void addAppointment(Appointment appnt){
         appointments.add(appnt);
     }
 
-    public void AddMedicalHistories(MedicalHistory history){
+    public void addMedicalHistories(MedicalHistory history){
         medicalHistories.add(history);
     }
 
-    public void AddBillings(Billing bill){
+    public void addBillings(Billing bill){
         billings.add(bill);
     }
 

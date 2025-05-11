@@ -39,6 +39,13 @@ public class Doctor extends User {
         System.out.println("Charge per appointment : " + chgperappt);
 
     }
+
+    @Override
+    public String toString()
+    {
+
+        return doctorID + " " + name + " " + phoneNumber + " " + specialization + " " + chgperappt ;
+    }
     
 }
 

@@ -4,11 +4,13 @@ public class Billing {
     private String billId;
     private double amount;
     private boolean isPaid;
+    private Patient patient;
 
     public Billing(String billId, double amount, boolean isPaid) {
      this.billId = billId;
      this.amount = amount;
      this.isPaid = isPaid;
+     this.patient = patient;
    }
 
     
@@ -23,19 +25,24 @@ public class Billing {
         System.out.println("Bill ID      : " + billId);
         System.out.printf("Amount       : RM%.2f\n", amount);
         System.out.println("Status       : " + (isPaid ? "Paid" : "Unpaid"));
+        System.out.println("Patient Name  : " + patient.getName());
         System.out.println("============================");
     }
 
     public void makePayment() {
         if (!isPaid) {
             isPaid = true;
-            System.out.println("Payment completed.");
+            System.out.println("Payment completed for " + patient.getName() + ".");
         } else {
             System.out.println("This bill is already marked as paid.");
         }
     }
 
-    // Getters and setters (optional)
+    @Override
+    public String toString()
+    {
+        return billId + " " + amount + " " + isPaid + " " + patient.getPatientID() + " " + patient.getName();
+    }
 }
   
 

@@ -6,7 +6,9 @@ import java.util.Scanner;
 public class MainClinicManagementSystem {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        Admin admin = new Admin();  // Admin instance
+        Admin admin = new Admin();
+
+        admin.readDataFromTextFiles();
 
         int choice;
 
@@ -21,7 +23,7 @@ public class MainClinicManagementSystem {
             System.out.println("7. Exit");
             System.out.print("Enter your choice: ");
             choice = input.nextInt();
-            input.nextLine();  // Consume newline
+            input.nextLine();
 
             switch (choice) {
                 case 1: // Register Patient
@@ -35,9 +37,10 @@ public class MainClinicManagementSystem {
                     String gender = input.nextLine();
                     System.out.print("Enter Age: ");
                     int age = input.nextInt();
-                    input.nextLine(); // Consume newline
+                    input.nextLine();
                     Patient newPatient = new Patient(patientName,patientPhone, patientID, gender, age);
                     admin.addPatient(newPatient);
+                    admin.dataToTextFiles();
                     System.out.println("Patient registered successfully!");
                     break;
 
@@ -54,6 +57,7 @@ public class MainClinicManagementSystem {
                     Double chgperappt = input.nextDouble();
                     Doctor newDoctor = new Doctor(doctorName, doctorID, doctorPhone, specialize, chgperappt);
                     admin.addDoctor(newDoctor);
+                    admin.dataToTextFiles();
                     System.out.println("Doctor registered successfully!");
                     break;
 
@@ -78,9 +82,12 @@ public class MainClinicManagementSystem {
                     int doctorIndex = input.nextInt();
                     input.nextLine();
 
-                    input.nextLine();  // consume newline
-                    Appointment appt = new Appointment(appointmentID, new java.util.Date(), "Scheduled");
+                    input.nextLine();
+                    Patient selectedPatient = allPatients.get(patientIndex);
+                    Doctor selectedDoctor = allDoctors.get(doctorIndex);
+                    Appointment appt = new Appointment(appointmentID, new java.util.Date(), "Scheduled", selectedPatient, selectedDoctor);
                     admin.addAppointment(appt);
+                    admin.dataToTextFiles();
                     System.out.println("Appointment created!");
                     break;
 
@@ -118,7 +125,6 @@ public class MainClinicManagementSystem {
                     System.out.print("Enter Prescription: ");
                     String prescription = input.nextLine();
 
-                    // Convert current date to String format
                     String currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
 
                     MedicalHistory history = new MedicalHistory(
@@ -130,6 +136,7 @@ public class MainClinicManagementSystem {
                     );
 
                     admin.addMedicalHistories(history);
+                    admin.dataToTextFiles();
                     System.out.println("Medical history added successfully.");
                     break;
 
@@ -141,26 +148,22 @@ public class MainClinicManagementSystem {
                     }
                     System.out.print("Enter Patient Index (0-" + (admin.getAllPatients().size() - 1) + "): ");
                     int patientIndexForBill = input.nextInt();
-                    input.nextLine(); // Consume newline
+                    input.nextLine();
 
-                    // Select Doctor
                     System.out.println("\n--- List of Doctors ---");
                     for (int i = 0; i < admin.getAllDoctors().size(); i++) {
                         System.out.println(i + " - " + admin.getAllDoctors().get(i).getName() + " (ID: " + admin.getAllDoctors().get(i).getDoctorID() + ")");
                     }
                     System.out.print("Enter Doctor Index (0-" + (admin.getAllDoctors().size() - 1) + "): ");
                     int doctorIndexForBill = input.nextInt();
-                    input.nextLine(); // Consume newline
-
-                    // Asking user for the billing amount based on doctor's charge
-                    System.out.print("Enter amount for the bill (in RM): ");
-                    double amount = input.nextDouble();
-                    input.nextLine(); // Consume newline
+                    input.nextLine();
 
                     // Create Billing and generate it
+                    double amount = admin.getAllDoctors().get(doctorIndexForBill).getChgperappt();
                     Billing billing = new Billing("B001", amount, false, admin.getAllPatients().get(patientIndexForBill), admin.getAllDoctors().get(doctorIndexForBill));
                     billing.generateBill(amount);
                     admin.addBillings(billing);
+                    admin.dataToTextFiles();
                     System.out.println("Billing generated successfully.");
                     break;
 
@@ -178,7 +181,6 @@ public class MainClinicManagementSystem {
                     System.out.println("\n-- Medical Histories --");
                     for (MedicalHistory mh : admin.getAllHistories()) mh.displayDetails();
 
-                    System.out.println("\n-- Bills --");
                     for (Billing b : admin.getAllBills()) b.viewBillingInfo();
                     break;
 

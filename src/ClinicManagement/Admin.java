@@ -3,6 +3,7 @@ package ClinicManagement;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Admin {
     private ArrayList<Patient> patients;
@@ -64,18 +65,16 @@ public class Admin {
         saveToFile("patients.txt", patients, currentDate);
         saveToFile("doctors.txt", doctors, currentDate);
         saveToFile("appointments.txt", appointments, currentDate);
-        saveToFile("histories.txt", medicalHistories, currentDate);
+        saveToFile("medicalHistories.txt", medicalHistories, currentDate);
         saveToFile("billings.txt", billings, currentDate);
     }
 
     private void saveToFile(String fileName, Iterable<?> list, Date date) {
         PrintWriter writer = null;
         File myFile;
-
         try {
             myFile = new File(fileName);
             writer = new PrintWriter(myFile);
-
             for (Object objects : list) {
                 writer.println(objects.toString());
             }
@@ -90,4 +89,130 @@ public class Admin {
             }
         }
     }
+
+    public void readDataFromTextFiles() {
+        // Read Patient datas
+        try {
+            Scanner scanner = new Scanner(new File("patients.txt"));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (!line.startsWith("Last updated:")) {
+                    String[] parts = line.split(",");
+                    if (parts.length == 5) {
+                        Patient p = new Patient(parts[0], parts[1], parts[2], parts[3], Integer.parseInt(parts[4]));
+                        patients.add(p);
+                    }
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("patients.txt not found.");
+        }
+
+        // Read Doctor datas
+        try {
+            Scanner scanner = new Scanner(new File("doctors.txt"));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (!line.startsWith("Last updated:")) {
+                    String[] parts = line.split(",");
+                    if (parts.length == 5) {
+                        Doctor d = new Doctor(parts[0], parts[1], parts[2], parts[3], Double.parseDouble(parts[4]));
+                        doctors.add(d);
+                    }
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("doctors.txt not found.");
+        }
+
+        // Read Appointment datas
+        try {
+            Scanner scanner = new Scanner(new File("appointments.txt"));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (!line.startsWith("Last updated:")) {
+                    String[] parts = line.split(",");
+                    if (parts.length == 5) {
+                        Patient patient = getPatientByID(parts[1]);
+                        Doctor doctor = getDoctorByID(parts[3]);
+
+                        if (patient != null && doctor != null) {
+                            Appointment a = new Appointment(parts[0], new Date(), parts[4], patient, doctor);
+                            appointments.add(a);
+                        }
+                    }
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("appointments.txt not found.");
+        }
+
+        // Read MedicalHistory data
+        try {
+            Scanner scanner = new Scanner(new File("medicalHistories.txt"));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (!line.startsWith("Last updated:")) {
+                    String[] parts = line.split(",", 3);
+                    if (parts.length == 3) {
+                        Patient patient = getPatientByID(parts[1]);
+                        Doctor doctor = getDoctorByID(parts[2]);
+
+                        if (patient != null && doctor != null) {
+                            MedicalHistory mh = new MedicalHistory(patient, doctor, parts[0], parts[1], parts[2]);
+                            medicalHistories.add(mh);
+                        }
+                    }
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("medicalHistories.txt not found.");
+        }
+
+        // Read Billing data
+        try {
+            Scanner scanner = new Scanner(new File("billings.txt"));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (!line.startsWith("Last updated:")) {
+                    String[] parts = line.split(",");
+                    if (parts.length == 3) {
+                        Patient patient = getPatientByID(parts[1]);
+                        Doctor doctor = getDoctorByID(parts[2]);
+
+                        if (patient != null && doctor != null) {
+                            Billing b = new Billing(parts[0], Double.parseDouble(parts[1]), Boolean.parseBoolean(parts[2]), patient, doctor);
+                            billings.add(b);
+                        }
+                    }
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("billings.txt not found.");
+        }
+    }
+
+    private Patient getPatientByID(String patientID) {
+        for (Patient p : patients) {
+            if (p.getPatientID().equals(patientID)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private Doctor getDoctorByID(String doctorID) {
+        for (Doctor d : doctors) {
+            if (d.getDoctorID().equals(doctorID)) {
+                return d;
+            }
+        }
+        return null;
+    }
+
 }

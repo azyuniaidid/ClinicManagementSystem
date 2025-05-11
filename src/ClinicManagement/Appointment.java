@@ -9,7 +9,7 @@ public class Appointment {
   private Patient patient;
   private Doctor doctor;
 
-    public Appointment(String appointmentID, Date appointmentDate, String appointmentStatus){
+    public Appointment(String appointmentID, Date appointmentDate, String appointmentStatus, Patient patient, Doctor doctor){
     this.appointmentID = appointmentID;
     this.appointmentDate = appointmentDate;
     this.appointmentStatus = appointmentStatus;

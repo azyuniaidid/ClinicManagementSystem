@@ -1,4 +1,5 @@
 package ClinicManagement;
 
-public class MedicalHistory {
+public class MedicalHistory 
+{
 }

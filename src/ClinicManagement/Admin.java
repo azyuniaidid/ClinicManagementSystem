@@ -1,8 +1,8 @@
 package ClinicManagement;
 
 import java.io.*;
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Admin {
     private ArrayList<Patient> patients;
@@ -60,11 +60,12 @@ public class Admin {
     }
 
     public void dataToTextFiles() {
-        saveToFile("patients.txt", patients);
-        saveToFile("doctors.txt", doctors);
-        saveToFile("appointments.txt", appointments);
-        saveToFile("histories.txt", medicalHistories);
-        saveToFile("billings.txt", billings);
+        Date currentDate = new Date();
+        saveToFile("patients.txt", patients, currentDate);
+        saveToFile("doctors.txt", doctors, currentDate);
+        saveToFile("appointments.txt", appointments, currentDate);
+        saveToFile("histories.txt", medicalHistories, currentDate);
+        saveToFile("billings.txt", billings, currentDate);
     }
 
     private void saveToFile(String fileName, Iterable<?> list, Date date) {
@@ -78,7 +79,7 @@ public class Admin {
             for (Object obj : list) {
                 writer.println(obj.toString());
             }
-            writer.println("Last updated: " + date);
+            writer.println("Last updated: " + date.toString());
             System.out.println("Data written to " + fileName);
         } catch (IOException e) {
             System.out.println("Error writing to " + fileName);

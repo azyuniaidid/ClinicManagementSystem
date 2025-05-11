@@ -22,7 +22,7 @@ public class Billing {
 
     public double getAmount (double amount) {
         this.amount = amount;
-        amount = doctor.chgperappt;
+        amount = doctor.getChgperappt;
         return amount;
     }
 

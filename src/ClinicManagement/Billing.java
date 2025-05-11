@@ -13,6 +13,11 @@ public class Billing {
      this.patient = patient;
    }
 
+    public String getBillID(){
+
+        return billID;
+  }
+
     
     public void generateBill(double amount) {
         this.amount = amount;

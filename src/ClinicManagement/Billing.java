@@ -5,12 +5,14 @@ public class Billing {
     private double amount;
     private boolean isPaid;
     private Patient patient;
+    private Doctor doctor;
 
     public Billing(String billId, double amount, boolean isPaid) {
      this.billId = billId;
      this.amount = amount;
      this.isPaid = isPaid;
      this.patient = patient;
+     this.doctor = doctor;
    }
 
     public String getBillID(){

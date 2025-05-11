@@ -1,5 +1,7 @@
 package ClinicManagement;
 
+import java.util.Date;
+
 public class Appointment {
   private String appointmentID;
   private Date appointmentDate;

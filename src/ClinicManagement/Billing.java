@@ -20,6 +20,12 @@ public class Billing {
         return billID;
   }
 
+    public double getAmount (double amount) {
+        this.amount = amount;
+        amount = doctor.chgperappt;
+        return amount;
+    }
+
     
     public void generateBill(double amount) {
         this.amount = amount;

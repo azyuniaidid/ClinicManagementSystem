@@ -49,4 +49,10 @@ public class MedicalHistory
     System.out.println("Prescription: " + prescription);
     System.out.println("Date: " + date);
   }
+
+  @Override
+  public String toString()
+  {
+    return diagnosis + " " + prescription + " " + date;
+  }
 }

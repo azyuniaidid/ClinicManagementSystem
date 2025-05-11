@@ -1,14 +1,14 @@
 package ClinicManagement;
 
 public class Billing {
-    private String billId;
+    private String billID;
     private double amount;
     private boolean isPaid;
     private Patient patient;
     private Doctor doctor;
 
-    public Billing(String billId, double amount, boolean isPaid) {
-     this.billId = billId;
+    public Billing(String billID, double amount, boolean isPaid) {
+     this.billId = billID;
      this.amount = amount;
      this.isPaid = isPaid;
      this.patient = patient;
@@ -34,7 +34,7 @@ public class Billing {
     
     public void viewBillingInfo() {
         System.out.println("\n=== Billing Information ===");
-        System.out.println("Bill ID      : " + billId);
+        System.out.println("Bill ID      : " + billID);
         System.out.printf("Amount       : RM%.2f\n", amount);
         System.out.println("Status       : " + (isPaid ? "Paid" : "Unpaid"));
         System.out.println("Patient Name  : " + patient.getName());

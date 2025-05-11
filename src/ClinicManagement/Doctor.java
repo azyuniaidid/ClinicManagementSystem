@@ -14,18 +14,21 @@ public class Doctor extends User {
         this.chgperappt = chgperappt;
     }
 
-    public String getdoctorID()
+    public String getDoctorID()
     {
+
         return doctorID;
     }
 
     public String getSpecialization()
     {
+
         return specialization;
     }
 
     public double getChgperappt()
     {
+
         return chgperappt;
     }
 

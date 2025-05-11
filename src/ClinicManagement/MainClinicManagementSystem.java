@@ -51,7 +51,7 @@ public class MainClinicManagementSystem {
                     System.out.print("Enter Specialization: ");
                     String specialize = input.nextLine();
                     System.out.print("Enter Charge Per Appointment(RM): ");
-                    String chgperappt = input.nextLine();
+                    Double chgperappt = input.nextDouble();
                     Doctor newDoctor = new Doctor(doctorName, doctorID, doctorPhone, specialize, chgperappt);
                     admin.addDoctor(newDoctor);
                     System.out.println("Doctor registered successfully!");
@@ -135,19 +135,35 @@ public class MainClinicManagementSystem {
 
 
                 case 5: // Generate Bill
-                    System.out.print("Enter Bill ID: ");
-                    String bid = sc.nextLine();
+                    System.out.println("\n--- List of Patients ---");
+                    for (int i = 0; i < admin.getAllPatients().size(); i++) {
+                        System.out.println(i + " - " + admin.getAllPatients().get(i).getName() + " (ID: " + admin.getAllPatients().get(i).getPatientID() + ")");
+                    }
                     System.out.print("Enter Patient Index (0-" + (admin.getAllPatients().size() - 1) + "): ");
-                    int pBill = sc.nextInt();
-                    System.out.print("Enter Amount: RM");
-                    double amount = sc.nextDouble();
-                    sc.nextLine();  // Consume newline
-                    System.out.print("Enter Payment Status (true for Paid, false for Unpaid): ");
-                    boolean status = sc.nextBoolean();
-                    Billing bill = new Billing(bid, amount, status, admin.getAllPatients().get(pBill));
-                    admin.addBillings(bill);
-                    System.out.println("Bill generated.");
+                    int patientIndexForBill = input.nextInt();
+                    input.nextLine(); // Consume newline
+
+                    // Select Doctor
+                    System.out.println("\n--- List of Doctors ---");
+                    for (int i = 0; i < admin.getAllDoctors().size(); i++) {
+                        System.out.println(i + " - " + admin.getAllDoctors().get(i).getName() + " (ID: " + admin.getAllDoctors().get(i).getDoctorID() + ")");
+                    }
+                    System.out.print("Enter Doctor Index (0-" + (admin.getAllDoctors().size() - 1) + "): ");
+                    int doctorIndexForBill = input.nextInt();
+                    input.nextLine(); // Consume newline
+
+                    // Asking user for the billing amount based on doctor's charge
+                    System.out.print("Enter amount for the bill (in RM): ");
+                    double amount = input.nextDouble();
+                    input.nextLine(); // Consume newline
+
+                    // Create Billing and generate it
+                    Billing billing = new Billing("B001", amount, false, admin.getAllPatients().get(patientIndexForBill), admin.getAllDoctors().get(doctorIndexForBill));
+                    billing.generateBill(amount);
+                    admin.addBillings(billing);
+                    System.out.println("Billing generated successfully.");
                     break;
+
 
                 case 6: // View All Data
                     System.out.println("\n-- Patients --");
@@ -160,7 +176,7 @@ public class MainClinicManagementSystem {
                     for (Appointment a : admin.getAllAppointments()) a.displayAppointment();
 
                     System.out.println("\n-- Medical Histories --");
-                    for (MedicalHistory mh : admin.getAllHistories()) mh.displayHistory();
+                    for (MedicalHistory mh : admin.getAllHistories()) mh.displayDetails();
 
                     System.out.println("\n-- Bills --");
                     for (Billing b : admin.getAllBills()) b.viewBillingInfo();
@@ -176,6 +192,6 @@ public class MainClinicManagementSystem {
 
         } while (choice != 7);
 
-        sc.close();
+        input.close();
     }
 }

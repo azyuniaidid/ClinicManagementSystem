@@ -7,7 +7,7 @@ public class Billing {
     private Patient patient;
     private Doctor doctor;
 
-    public Billing(String billID, double amount, boolean isPaid) {
+    public Billing(String billID, double amount, boolean isPaid, Patient patient, Doctor doctor) {
      this.billID = billID;
      this.amount = amount;
      this.isPaid = isPaid;
@@ -21,7 +21,7 @@ public class Billing {
   }
 
     public double getAmount () {
-        amount = doctor.getChgperappt;
+        amount = doctor.getChgperappt();
         return amount;
     }
 
@@ -53,7 +53,7 @@ public class Billing {
     @Override
     public String toString()
     {
-        return billId + " " + amount + " " + isPaid + " " + patient.getPatientID() + " " + patient.getName();
+        return billID + " " + amount + " " + isPaid + " " + patient.getPatientID() + " " + patient.getName();
     }
 }
   

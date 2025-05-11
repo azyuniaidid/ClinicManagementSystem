@@ -20,8 +20,7 @@ public class Billing {
         return billID;
   }
 
-    public double getAmount (double amount) {
-        this.amount = amount;
+    public double getAmount () {
         amount = doctor.getChgperappt;
         return amount;
     }

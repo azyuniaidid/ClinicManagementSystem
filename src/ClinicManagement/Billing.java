@@ -8,7 +8,7 @@ public class Billing {
     private Doctor doctor;
 
     public Billing(String billID, double amount, boolean isPaid) {
-     this.billId = billID;
+     this.billID = billID;
      this.amount = amount;
      this.isPaid = isPaid;
      this.patient = patient;

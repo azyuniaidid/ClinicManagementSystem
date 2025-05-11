@@ -40,5 +40,11 @@ public class Patient extends User
         System.out.println("Gender : " + gender);
 
     }
+
+    @Override
+    public String toString()
+    {
+        return patientID + " " + name + " " + phoneNumber + " " + age + " " + gender ;
+    }
 }
 

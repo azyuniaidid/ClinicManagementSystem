@@ -76,8 +76,8 @@ public class Admin {
             myFile = new File(fileName);
             writer = new PrintWriter(myFile);
 
-            for (Object obj : list) {
-                writer.println(obj.toString());
+            for (Object objects : list) {
+                writer.println(objects.toString());
             }
             writer.println("Last updated: " + date.toString());
             System.out.println("Data written to " + fileName);

@@ -27,14 +27,16 @@ public class CreateAppointment {
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 
-        Label scenetitle = new Label("CREATE APPOINTMENT");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
-        scenetitle.setTextFill(Color.WHITE);
+        Text sceneTitle = new Text("CREATE APPOINTMENT");
+        sceneTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
 
-        scenetitle.setBackground(new Background(new BackgroundFill(Color.LIGHTSEAGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-        scenetitle.setPadding(new Insets(10));
+        HBox banner = new HBox();
+        banner.setAlignment(Pos.CENTER);
+        banner.setPadding(new Insets(30)); // Size of banner
+        banner.getChildren().add(sceneTitle);
+        banner.setStyle("-fx-background-color: #ADD378;");
 
-        layout.getChildren().add(scenetitle);
+        layout.getChildren().add(banner);
 
         GridPane grid = new GridPane();
         grid.setVgap(10);

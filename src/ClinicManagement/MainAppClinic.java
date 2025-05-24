@@ -22,7 +22,7 @@ public class MainAppClinic extends Application {
     private Stage primaryStage;
     private Scene scene;
     private final RegisterPatient registerPatient = new RegisterPatient();
-    private final RegisterDoctor registerDoctor = new RegisterDoctor();
+    private final RegisterDoctorPanel registerDoctor = new RegisterDoctorPanel();
     private final CreateAppointment createAppointment = new CreateAppointment();
     private final AddMedicalHistory addMedicalHistory = new AddMedicalHistory();
     private final GenerateBill generateBill = new GenerateBill();

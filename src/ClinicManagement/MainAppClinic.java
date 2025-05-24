@@ -20,7 +20,7 @@ public class MainAppClinic extends Application {
         this.primaryStage = primaryStage;
         Parent root = getFirstPanelView();
         scene = new Scene(root, 800, 700);
-        primaryStage.setTitle("JavaFX Multiple UI Panels Example");
+        primaryStage.setTitle("@ClinicMesra");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

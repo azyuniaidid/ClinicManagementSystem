@@ -3,7 +3,7 @@ package ClinicManagement;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class RegisterDoctor extends Application {
+public class RegisterDoctorPanel extends Application {
 
     public static void main(String[] args) {
         launch(args);

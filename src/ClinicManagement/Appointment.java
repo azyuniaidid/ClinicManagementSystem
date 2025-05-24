@@ -51,7 +51,6 @@ public class Appointment {
     @Override
     public String toString()
     {
-
         return appointmentID + " " + patient.getPatientID() + " " + patient.getName() + " " + appointmentDate + " " + appointmentStatus + " " + doctor.getName();
     }
 }

@@ -2,6 +2,7 @@ package ClinicManagement;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -27,8 +28,12 @@ public class MainAppClinic extends Application {
     private final AddMedicalHistory addMedicalHistory = new AddMedicalHistory();
     private final GenerateBill generateBill = new GenerateBill();
 
+    private final Admin admin = new Admin();
     @Override
     public void start(Stage primaryStage) {
+
+        admin.addPatient(new Patient("Aisyah", "0123232", "P001", "Female", 23));
+        admin.addDoctor(new Doctor("Dr. Ali", "D001", "0123232", "Cardiology", 44.5 ));
         this.primaryStage = primaryStage;
         Parent root = mainInterface();
         scene = new Scene(root, 800, 700);
@@ -41,23 +46,30 @@ public class MainAppClinic extends Application {
         Label title = new Label("Clinic Management System");
         title.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
         title.setTextFill(Color.WHITE);
+        title.setBackground(new Background(new BackgroundFill(Color.LIGHTSEAGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        title.setPadding(new Insets(10));
+
         VBox layout = new VBox(15);
         layout.setPadding(new Insets(20));
-        layout.setBackground(new Background(new BackgroundFill(Color.SEAGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        layout.setAlignment(Pos.CENTER);
+
         layout.getChildren().add(title);
 
+        /*
         Button btnPatient = new Button("Register Patient");
         Button btnDoctor = new Button("Register Doctor");
+         */
         Button btnAppointment = new Button("Create Appointment");
-        Button btnMedicalHistory = new Button("Add Medical History");
-        Button btnBill = new Button("Generate Bill");
+        //Button btnMedicalHistory = new Button("Add Medical History");
+        //Button btnBill = new Button("Generate Bill");
 
-        btnPatient.setPrefWidth(200);
-        btnDoctor.setPrefWidth(200);
+        //btnPatient.setPrefWidth(200);
+        //btnDoctor.setPrefWidth(200);
         btnAppointment.setPrefWidth(200);
-        btnMedicalHistory.setPrefWidth(200);
-        btnBill.setPrefWidth(200);
+        //btnMedicalHistory.setPrefWidth(200);
+       //btnBill.setPrefWidth(200);
 
+        /*
         btnPatient.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -71,14 +83,14 @@ public class MainAppClinic extends Application {
                 setScene(registerDoctor.getView(MainAppClinic.this));
             }
         });
-
+*/
         btnAppointment.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                setScene(createAppointment.getView(MainAppClinic.this));
+                setScene(createAppointment.getView(MainAppClinic.this, admin));
             }
         });
-
+/*
         btnMedicalHistory.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -93,8 +105,12 @@ public class MainAppClinic extends Application {
             }
         });
 
+ */
+
         layout.getChildren().addAll(
-                btnPatient, btnDoctor, btnAppointment, btnMedicalHistory, btnBill
+                //btnPatient, btnDoctor,
+                btnAppointment
+                //, btnMedicalHistory, btnBill
         );
 
         return layout;

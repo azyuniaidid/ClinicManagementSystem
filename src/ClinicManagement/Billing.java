@@ -24,6 +24,16 @@ public class Billing {
         return amount;
     }
 
+    public Patient getPatient()
+  {
+    return patient;
+  }
+
+  public Doctor getDoctor()
+  {
+    return doctor;
+  }
+
     public void generateBill(String billID, double amount, String date) {
         this billID = billID;
         this.amount = amount;

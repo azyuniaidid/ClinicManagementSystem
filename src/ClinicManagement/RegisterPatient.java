@@ -1,22 +1,27 @@
 package ClinicManagement;
 
 
+package com.example.oop_uiproject;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import java.io.FileWriter;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.layout.VBox;
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 
 
 public class RegisterPatient
@@ -105,6 +110,7 @@ public class RegisterPatient
             @Override
             public void handle(ActionEvent actionEvent)
             {
+
                 //patient is registered
                 actiontarget.setFill(Color.GREEN);
                 actiontarget.setText("Patient is Registered");
@@ -158,13 +164,60 @@ public class RegisterPatient
             }
         });
 
-        //scene
-        VBox layout = new VBox();
-        layout.getChildren().addAll(banner, grid);
+        //side buttons
+        //actions
+        Button regDoctorBtn = new Button("Register Doctor");
+        Button createApptBtn = new Button("Create Appointment");
+        Button medHistoryBtn = new Button("Medical History");
+        Button genBillBtn = new Button("Generate Bill");
+        Button mainPageBtn = new Button("Main Page");
 
-        //back
-        Button backBtn = new Button("Back to Main Page");
-        backBtn.setOnAction(new EventHandler<ActionEvent>()
+        //regPatientBtn action
+        regDoctorBtn.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                RegisterPatient registerPatient = new RegisterPatient();
+                app.setScene(registerPatient.getView(app));
+            }
+        });
+
+        //createApptBtn action
+        createApptBtn.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                CreateAppointment createApp = new CreateAppointment();
+                app.setScene(createApp.getView(app));
+            }
+        });
+
+        //medHistoryBtn action
+        medHistoryBtn.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                AddMedicalHistory addMedicHistory = new AddMedicalHistory();
+                app.setScene(addMedicHistory.getView(app));
+            }
+        });
+
+        //genBillBtn action
+        genBillBtn.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                GenerateBill genBill = new GenerateBill();
+                app.setScene(genBill.getView(app));
+            }
+        });
+
+        //mainPageBtn action
+        mainPageBtn.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent e)
@@ -172,17 +225,34 @@ public class RegisterPatient
                 app.setScene(app.getDashboard());
             }
         });
-        layout.getChildren().add(backBtn);
 
-        // connect register w main
-        VBox connectView = new VBox(20);
-        connectView.setPadding(new Insets(20));
-        connectView.getChildren().addAll(layout, panel);
+        //buttons at the side
+        VBox sideBtns = new VBox(10);
+        sideBtns.setPrefWidth(10);
+        sideBtns.setPadding(new Insets(10));
+        sideBtns.setAlignment(Pos.CENTER);
 
-        return connectView;
+        //size of letters, size of buttons
+        regDoctorBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        createApptBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        medHistoryBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        genBillBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        mainPageBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
 
+        HBox contentLayout = new HBox();
+        contentLayout.setPadding(new Insets(20));
+        contentLayout.getChildren().addAll(sideBtns, grid);
+        contentLayout.setAlignment(Pos.CENTER);
+
+        sideBtns.getChildren().addAll(regDoctorBtn, createApptBtn, medHistoryBtn, genBillBtn, mainPageBtn);
+
+        VBox fullLayout = new VBox();
+        fullLayout.getChildren().addAll(banner, contentLayout);
+
+        return fullLayout;
     }
 
 }
+
 
 

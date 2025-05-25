@@ -1,4 +1,4 @@
-package ClinicManagement;
+package com.example.oop_uiproject;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -6,7 +6,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.Parent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -107,6 +106,7 @@ public class RegisterPatient
             @Override
             public void handle(ActionEvent actionEvent)
             {
+                System.out.println("Successfully Registered!");
 
                 //patient is registered
                 actiontarget.setFill(Color.GREEN);
@@ -250,6 +250,3 @@ public class RegisterPatient
     }
 
 }
-
-
-

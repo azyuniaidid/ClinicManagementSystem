@@ -162,11 +162,6 @@ public class RegisterPatient
         VBox layout = new VBox();
         layout.getChildren().addAll(banner, grid);
 
-        //different panels
-        VBox panel = new VBox(10);
-        panel.setStyle("-fx-padding: 20");
-
-
         //back
         Button backBtn = new Button("Back to Main Page");
         backBtn.setOnAction(new EventHandler<ActionEvent>()

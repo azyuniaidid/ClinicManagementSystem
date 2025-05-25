@@ -46,22 +46,21 @@ public class GenerateBill {
         //sidebar menu 
         VBox sideBar = new VBox(10);
         sideBar.setPrefWidth(200);
-        sideBar.setPadding(new Insets(20));
-        sideBar.setStyle("-fx-background-color: white;");
         
-        Button regPatientBtn = new Button("REGISTER PATIENT");
-        Button regDocBtn = new Button("REGISTER DOCTOR");
-        Button createApptBtn = new Button("CREATE APPOINTMENT");
-        Button medHistoryBtn = new Button("MEDICAL HISTORY");
-        Button homeBtn = new Button("← HOME");
+        
+        Button regPatientBtn = new Button("Register Patient");
+        Button regDocBtn = new Button("Register Doctor");
+        Button createApptBtn = new Button("Create Appointment");
+        Button medHistoryBtn = new Button("Medical History");
+        Button mainPageBtn = new Button("Main Page");
         
         regPatientBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
         regDocBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
         createApptBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
         medHistoryBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
-        homeBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        mainPageBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
         
-        sideBar.getChildren().addAll(regPatientBtn, regDocBtn, createApptBtn, medHistoryBtn, homeBtn);
+        sideBar.getChildren().addAll(regPatientBtn, regDocBtn, createApptBtn, medHistoryBtn, mainPageBtn);
 
         
         //list of patients    
@@ -248,8 +247,8 @@ public class GenerateBill {
         
        
         
-        //homeBtn action
-        homeBtn.setOnAction(new EventHandler<ActionEvent>()
+        //mainPageBtn action
+        mainPageBtn.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent e)

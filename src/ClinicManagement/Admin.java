@@ -185,7 +185,7 @@ public class Admin {
                         Doctor doctor = getDoctorByID(parts[2]);
 
                         if (patient != null && doctor != null) {
-                            Billing b = new Billing(parts[0], Double.parseDouble(parts[1]), Boolean.parseBoolean(parts[2]), patient, doctor);
+                            Billing b = new Billing(parts[0], Double.parseDouble(parts[1]), new Date(), patient, doctor);
                             billings.add(b);
                         }
                     }

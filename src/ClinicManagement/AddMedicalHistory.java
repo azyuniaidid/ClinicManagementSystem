@@ -133,7 +133,6 @@ public class AddMedicalHistory
 
         grid.add(actiontarget, 5, 15);
 
-
         return grid;
     }
 }

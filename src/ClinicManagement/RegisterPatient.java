@@ -1,5 +1,6 @@
 package ClinicManagement;
 
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,6 +14,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.layout.VBox;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class RegisterPatient
 {
@@ -108,7 +113,7 @@ public class RegisterPatient
                 String id = ptid.getText();
 
                 //read patient name
-                String name = ptname.getText();
+                String name = patientName.getText();
 
                 //read patients phone number
                 String number = phoneNumber.getText();
@@ -117,15 +122,28 @@ public class RegisterPatient
                 String patientGender = genderBox.getValue();
 
                 //read age
-                String paitientAge = ages.getText();
+                String patientAge = ages.getText();
 
                 String msg = "Patient ID :  " + id + "\n"
                         +"Patient Name : " + name + "\n"
                         +"Phone Number : " + number + "\n"
                         +"Gender : " + patientGender + "\n"
-                        +"Age : " + paitientAge;
+                        +"Age : " + patientAge;
 
                 area.setText(msg);
+
+                String fileLine = id + "\n" + name + "\n" + number + "\n" + patientGender + "\n" + patientAge + "\n";
+
+                // to text file
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("patients.txt", true)))
+                {
+                    writer.write(fileLine);
+                    writer.newLine();
+                }
+                catch (IOException e)
+                {
+                    System.err.println("Error writing to file: " + e.getMessage());
+                }
             }
         });
 
@@ -167,6 +185,9 @@ public class RegisterPatient
         connectView.getChildren().addAll(layout, panel);
 
         return connectView;
+
     }
+
 }
+
 

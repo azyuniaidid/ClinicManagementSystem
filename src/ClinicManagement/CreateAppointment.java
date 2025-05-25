@@ -22,9 +22,6 @@ import java.util.Date;
 
 public class CreateAppointment {
     public Parent getView(MainAppClinic app, Admin admin){
-        VBox layout = new VBox(20);
-        layout.setPadding(new Insets(20));
-        layout.setAlignment(Pos.CENTER);
 
         Text sceneTitle = new Text("CREATE APPOINTMENT");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
@@ -34,8 +31,6 @@ public class CreateAppointment {
         banner.setPadding(new Insets(30)); // Size of banner
         banner.getChildren().add(sceneTitle);
         banner.setStyle("-fx-background-color: #ADD378;");
-
-        layout.getChildren().add(banner);
 
         GridPane grid = new GridPane();
         grid.setVgap(10);

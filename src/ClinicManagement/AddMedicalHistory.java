@@ -28,7 +28,7 @@ public class AddMedicalHistory
 {   
     public Parent getView (MainAppClinic app, Admin admin)
     {
-        //patient banner
+
         Text sceneTitle = new Text("ADD MEDICAL HISTORY");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
 
@@ -44,6 +44,7 @@ public class AddMedicalHistory
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
+
 /*
         VBox sideMenu = new VBox(15);
         sideMenu.setPadding(new Insets(20));
@@ -131,6 +132,7 @@ public class AddMedicalHistory
         actiontarget = new Text();
 
         grid.add(actiontarget, 5, 15);
+
 
         return grid;
     }

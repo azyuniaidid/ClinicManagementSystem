@@ -47,7 +47,7 @@ public class GenerateBill {
         VBox sideBar = new VBox(10);
         sideBar.setPrefWidth(200);
         
-        Button regPatientBtn = new Button("Register Patient");
+        Button regPatientBtn = new Button("REGISTER PATIENT");
         Button regDocBtn = new Button("Register Doctor");
         Button createApptBtn = new Button("Create Appointment");
         Button medHistoryBtn = new Button("Medical History");
@@ -60,6 +60,20 @@ public class GenerateBill {
         mainPageBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
         
         sideBar.getChildren().addAll(regPatientBtn, regDocBtn, createApptBtn, medHistoryBtn, mainPageBtn);
+
+         VBox sideMenu = new VBox(15);
+        sideMenu.setPadding(new Insets(20));
+        sideMenu.setStyle("-fx-background-color: white;");
+        sideMenu.setPrefWidth(180);
+
+        Button btnRegisterPatient = new Button("REGISTER PATIENT");
+        Button btnRegisterDoctor = new Button("REGISTER DOCTOR");
+        Button btnMedicalHistory = new Button("MEDICAL HISTORY");
+        Button btnGenerateBill = new Button("GENERATE BILL");
+        Button btnHome = new Button("← HOME");
+
+
+        
         
         
         //list of patients    

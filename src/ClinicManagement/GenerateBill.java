@@ -130,9 +130,6 @@ public class GenerateBill {
         
          //button
         Button generateBtn = new Button("GENERATE");
-        generateBtn.setAlignment(Pos.CENTER_LEFT);
-        generateBtn.setPrefHeight(100);
-        generateBtn.setPrefWidth(100);
         grid.add(generateBtn,0, 10);
         
         final Text

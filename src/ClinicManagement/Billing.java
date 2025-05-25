@@ -44,7 +44,7 @@ public class Billing {
 
     @Override
     public String toString() {
-        return billID + " " + amount + " " + isPaid + " " +
+        return billID + " " + amount + " " + 
                 (patient != null ? patient.getPatientID() : "N/A") + " " +
                 (patient != null ? patient.getName() : "N/A");
     }

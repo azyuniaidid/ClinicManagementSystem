@@ -24,6 +24,11 @@ public class Billing {
         return amount;
     }
 
+    public String getDate()
+  {
+    return date;
+  }
+
     public Patient getPatient()
   {
     return patient;

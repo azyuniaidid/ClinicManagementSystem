@@ -1,5 +1,4 @@
-package ClinicManagement;
-
+package com.example.oop_uiproject;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,9 +16,6 @@ import javafx.scene.text.Text;
 import javafx.scene.layout.VBox;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
-
 
 public class RegisterPatient
 {
@@ -41,6 +37,8 @@ public class RegisterPatient
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setPrefWidth(500);
+
 
         //patient id
         Label ptlabel = new Label("Patient ID");
@@ -87,7 +85,7 @@ public class RegisterPatient
         grid.add(cancel,4, 10);
 
         final Text
-                actiontarget = new Text();
+        actiontarget = new Text();
 
         grid.add(actiontarget, 5, 11);
 
@@ -176,8 +174,8 @@ public class RegisterPatient
             @Override
             public void handle(ActionEvent event)
             {
-                RegisterPatient registerPatient = new RegisterPatient();
-                app.setScene(registerPatient.getView(app));
+                RegisterDoctor regDoctor = new RegisterDoctor();
+                app.setScene(regDoctor.getView(app));
             }
         });
 
@@ -188,7 +186,7 @@ public class RegisterPatient
             public void handle(ActionEvent event)
             {
                 CreateAppointment createApp = new CreateAppointment();
-                app.setScene(createApp.getView(app, new Admin()));
+                app.setScene(createApp.getView(app));
             }
         });
 
@@ -199,7 +197,7 @@ public class RegisterPatient
             public void handle(ActionEvent event)
             {
                 AddMedicalHistory addMedicHistory = new AddMedicalHistory();
-                app.setScene(addMedicHistory.getView(app, new Admin()));
+                app.setScene(addMedicHistory.getView(app));
             }
         });
 
@@ -210,7 +208,7 @@ public class RegisterPatient
             public void handle(ActionEvent event)
             {
                 GenerateBill genBill = new GenerateBill();
-                app.setScene(genBill.getView(app, new Admin()));
+                app.setScene(genBill.getView(app));
             }
         });
 
@@ -226,7 +224,7 @@ public class RegisterPatient
 
         //buttons at the side
         VBox sideBtns = new VBox(10);
-        sideBtns.setPrefWidth(10);
+        sideBtns.setPrefWidth(180);
         sideBtns.setPadding(new Insets(10));
         sideBtns.setAlignment(Pos.TOP_LEFT);
 

@@ -227,7 +227,7 @@ public class RegisterPatient
         VBox sideBtns = new VBox(10);
         sideBtns.setPrefWidth(10);
         sideBtns.setPadding(new Insets(10));
-        sideBtns.setAlignment(Pos.CENTER);
+        sideBtns.setAlignment(Pos.TOP_LEFT);
 
         //size of letters, size of buttons
         regDoctorBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");

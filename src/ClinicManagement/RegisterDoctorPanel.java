@@ -102,16 +102,16 @@ public class RegisterDoctorPanel {
                 app.setScene(addMedicHistory.getView(app, new Admin()));
             }
         });
-        /*
+
         //genBillBtn action
         medHistoryBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 GenerateBill genBill = new GenerateBill();
-                app.setScene(genBill.getView(app));
+                app.setScene(genBill.getView(app,new Admin()));
             }
         });
-        */
+
         //mainPageBtn action
         mainPageBtn.setOnAction(new EventHandler<ActionEvent>()
         {

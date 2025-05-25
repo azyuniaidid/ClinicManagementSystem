@@ -30,6 +30,8 @@ public class MainAppClinic extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+        admin.addPatient(new Patient("Ali", "0111113456", "P001", "Male", 21));
+        admin.addDoctor(new Doctor("Abu", "D001", "0122222345", "Ortho", 32.9));
         this.primaryStage = primaryStage;
         Parent root = mainInterface();
         scene = new Scene(root, 800, 700);

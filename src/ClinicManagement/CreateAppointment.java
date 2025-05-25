@@ -216,7 +216,7 @@ public class CreateAppointment {
         HBox contentLayout = new HBox();
         contentLayout.setPadding(new Insets(20));
         contentLayout.getChildren().addAll(sideBtns, grid);
-        contentLayout.setAlignment(Pos.CENTER);
+        //contentLayout.setAlignment(Pos.CENTER);
 
         sideBtns.getChildren().addAll(btnRegPatient, btnRegDoctor, btnAddMed, btnGenBill, btnHome);
 

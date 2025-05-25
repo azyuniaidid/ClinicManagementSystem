@@ -131,5 +131,8 @@ public class AddMedicalHistory
         actiontarget = new Text();
 
         grid.add(actiontarget, 5, 11);
+
+        layout.getChildren().add(grid);
+        return layout;
     }
 }

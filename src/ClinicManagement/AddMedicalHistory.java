@@ -115,7 +115,7 @@ public class AddMedicalHistory
         grid.add(prescription,0,1);
         
         //date
-        Label dateLabel = new Label("Prescription:");
+        Label dateLabel = new Label("Date:");
         dateLabel.setFont(Font.font("Arial", FontWeight.BOLD,15));
         grid.add(dateLabel, 0, 0);
         DatePicker dates = new DatePicker();

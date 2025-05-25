@@ -1,4 +1,4 @@
-package ClinicManagement;
+package clinicmainpanel;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 
 public class RegisterDoctorPanel {
@@ -121,9 +122,28 @@ public class RegisterDoctorPanel {
             }
         });
         
+        //regBtn action
+        final Text actionTarget = new Text();
+        regBtn.setOnAction(new EventHandler<ActionEvent>(){
+           
+            @Override
+            public void handle(ActionEvent e){
+                String doctorID = docIdField.getText();
+                String name = docNameField.getText();
+                String phoneNumber = phoneField.getText();
+                String specialization = specializationBox.getValue().toString();
+                double chgperappt = Double.parseDouble(chgperapptField.getText());
+                
+                Doctor doctor = new Doctor(doctorID, name, phoneNumber, specialization, chgperappt);
+                doctor.addDoctor(doctor);
+                
+                actionTarget.setText("Doctor has been registered");
+            }
+        });
+        
         
         form.getChildren().addAll(docIdlbl, docIdField, docNamelbl, docNameField, phoneLbl, phoneField,
-                specializationLbl, specializationBox, chgperapptLbl, chgperapptField, regBtn);
+                specializationLbl, specializationBox, chgperapptLbl, chgperapptField, regBtn, actionTarget);
         
         BorderPane layout = new BorderPane();
         layout.setTop(imageView);

@@ -28,7 +28,7 @@ import javafx.scene.text.Text;
  */
 public class GenerateBill {
     
-    public Parent getView (MainAppClinic app){
+    public Parent getView (MainAppClinic app, Admin admin){
         
         //Clinic banner
         Image image = new Image("file:///C:/Users/User/Pictures/BannerBill.jpg");
@@ -231,16 +231,16 @@ public class GenerateBill {
             @Override
             public void handle(ActionEvent event) {
                 CreateAppointment createApp = new CreateAppointment();
-                app.setScene(createApp.getView(app));
+                app.setScene(createApp.getView(app, new Admin()));
             }
         });
         
         //medHistoryBtn action
-        genBillBtn.setOnAction(new EventHandler<ActionEvent>() {
+        medHistoryBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 AddMedicalHistory addMedicHistory = new AddMedicalHistory();
-                app.setScene(addMedicHistory.getView(app));
+                app.setScene(addMedicHistory.getView(app, new Admin()));
             }
         });
         
@@ -255,9 +255,6 @@ public class GenerateBill {
                 app.setScene(app.getDashboard());
             }
         });
-        
-        
-        
 
         BorderPane layout = new BorderPane();
         layout.setTop(imageView);

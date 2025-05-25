@@ -1,4 +1,4 @@
-package clinicmainpanel;
+package ClinicManagement;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -90,19 +90,19 @@ public class RegisterDoctorPanel {
             @Override
             public void handle(ActionEvent event) {
                 CreateAppointment createApp = new CreateAppointment();
-                app.setScene(createApp.getView(app));
+                app.setScene(createApp.getView(app, new Admin()));
             }
         });
-        
+
         //medHistoryBtn action
         genBillBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 AddMedicalHistory addMedicHistory = new AddMedicalHistory();
-                app.setScene(addMedicHistory.getView(app));
+                app.setScene(addMedicHistory.getView(app, new Admin()));
             }
         });
-        
+        /*
         //genBillBtn action
         medHistoryBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -111,7 +111,7 @@ public class RegisterDoctorPanel {
                 app.setScene(genBill.getView(app));
             }
         });
-        
+        */
         //mainPageBtn action
         mainPageBtn.setOnAction(new EventHandler<ActionEvent>()
         {

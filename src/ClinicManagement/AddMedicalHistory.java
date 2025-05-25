@@ -73,63 +73,65 @@ public class AddMedicalHistory
         for(Patient p : admin.getAllPatients()){
             patient.getItems().add(p.getName());
         }
-        grid.add(patient, 0, 6);
+        grid.add(patient, 0, 1);
         
         //patient index
         Label ptIndexLabel = new Label("Patient Index:");
         ptIndexLabel.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(ptIndexLabel, 0, 0);
+        grid.add(ptIndexLabel, 0, 2);
         TextField ptIndex = new TextField();
-        grid.add(ptIndex,0,1);
+        grid.add(ptIndex,0,3);
         
         //list of doctors
         Label docList = new Label("List of Doctors:");
         docList.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(docList, 0, 0);
+        grid.add(docList, 0, 4);
         ComboBox<String> doctor = new ComboBox<>();
         doctor.setPromptText("Select");
         for(Doctor d : admin.getAllDoctors()){
             doctor.getItems().add(d.getName());
         }
-        grid.add(doctor,0, 9);
+        grid.add(doctor,0, 5);
         
         //doctor index
         Label docIndexLabel = new Label("Doctor Index:");
         docIndexLabel.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(docIndexLabel, 0, 0);
+        grid.add(docIndexLabel, 0, 6);
         TextField docIndex = new TextField();
-        grid.add(docIndex,0,1);
+        grid.add(docIndex,0,7);
         
         //diagnosis
         Label diagnosisLabel = new Label("Diagnosis:");
         diagnosisLabel.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(diagnosisLabel, 0, 0);
+        grid.add(diagnosisLabel, 0, 8);
         TextField diagnosis = new TextField();
-        grid.add(diagnosis,0,1);
+        grid.add(diagnosis,0,9);
         
         //prescription
         Label prescriptionLabel = new Label("Prescription:");
         prescriptionLabel.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(prescriptionLabel, 0, 0);
+        grid.add(prescriptionLabel, 0, 10);
         TextField prescription = new TextField();
-        grid.add(prescription,0,1);
+        grid.add(prescription,0,11);
         
         //date
         Label dateLabel = new Label("Date:");
         dateLabel.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(dateLabel, 0, 0);
+        grid.add(dateLabel, 0, 12);
         DatePicker dates = new DatePicker();
-        grid.add(dates, 0, 12);
+        grid.add(dates, 0, 13);
         
         //button
         Button btnAdd = new Button("Add");
-        grid.add(btnAdd,5, 10);
+        grid.add(btnAdd,5, 14);
         Button btnCancel = new Button("Cancel");
-        grid.add(btnCancel,4, 10);
+        grid.add(btnCancel,4, 14);
 
         final Text
         actiontarget = new Text();
 
-        grid.add(actiontarget, 5, 11);
+        grid.add(actiontarget, 5, 15);
+
+        return grid;
     }
 }

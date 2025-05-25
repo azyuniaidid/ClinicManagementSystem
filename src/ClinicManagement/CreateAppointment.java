@@ -1,176 +1,158 @@
 package ClinicManagement;
 
+import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.text.Text;
+import javafx.scene.Parent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.Parent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import java.io.FileWriter;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.layout.VBox;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
+public class CreateAppointment {
+    public Parent getView(MainAppClinic app, Admin admin){
+        VBox layout = new VBox(20);
+        layout.setPadding(new Insets(20));
+        layout.setAlignment(Pos.CENTER);
 
-public class RegisterPatient
-{
-    public Parent getView(MainAppClinic app)
-    {
-        //patient banner
-        Text sceneTitle = new Text("PATIENT REGISTRATION");
+        Text sceneTitle = new Text("CREATE APPOINTMENT");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
 
         HBox banner = new HBox();
         banner.setAlignment(Pos.CENTER);
-        banner.setPadding(new Insets(30)); //size of the green banner
+        banner.setPadding(new Insets(30)); // Size of banner
         banner.getChildren().add(sceneTitle);
         banner.setStyle("-fx-background-color: #ADD378;");
 
-        //grid banner layout
+        layout.getChildren().add(banner);
+
         GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setHgap(10);
+        grid.setAlignment(Pos.CENTER);
 
-        //patient id
-        Label ptlabel = new Label("Patient ID");
-        ptlabel.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(ptlabel, 0, 0);
-        TextField ptid = new TextField();
-        grid.add(ptid,0,1);
+        Label appointmentID = new Label("Appointment ID : ");
+        Label patientName = new Label("Patient Name : ");
+        Label doctorName = new Label("Doctor Name : ");
+        Label date = new Label("Date : ");
 
-        //patient name
-        Label ptname = new Label("Patient Name");
-        ptname.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(ptname, 0, 2);
-        TextField patientName = new TextField();
-        grid.add(patientName,0,3);
+        grid.add(appointmentID, 0, 2);
+        grid.add(patientName, 0, 5);
+        grid.add(doctorName, 0, 8);
+        grid.add(date, 0, 11);
 
-        //phone number
-        Label number = new Label("Phone Number");
-        number.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(number, 0, 4);
-        TextField phoneNumber = new TextField();
-        grid.add(phoneNumber,0,5);
+        TextField IDTextField = new TextField();
+        IDTextField.setPromptText("Enter Appointment ID");
+        grid.add(IDTextField, 0, 3);
 
-        //gender
-        Label gender = new Label("Gender");
-        gender.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(gender, 0, 6);
+        ComboBox<String> patient = new ComboBox<>();
+        patient.setPromptText("Select");
+        for(Patient p : admin.getAllPatients()){
+            patient.getItems().add(p.getName());
+        }
+        grid.add(patient, 0, 6);
 
-        ComboBox<String> genderBox = new ComboBox<>();
-        genderBox.getItems().addAll("Male", "Female");
-        genderBox.setPrefWidth(100);
-        grid.add(genderBox, 0, 7);
+        ComboBox<String> doctor = new ComboBox<>();
+        doctor.setPromptText("Select");
+        for(Doctor d : admin.getAllDoctors()){
+            doctor.getItems().add(d.getName());
+        }
+        grid.add(doctor,0, 9);
 
-        //age
-        Label age = new Label("Age");
-        age.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(age, 0, 8);
-        TextField ages = new TextField();
-        grid.add(ages,0,9);
+        DatePicker dates = new DatePicker();
+        grid.add(dates, 0, 12);
 
-        //register and cancel button
-        Button register = new Button("Register");
-        grid.add(register,5, 10);
-        Button cancel = new Button("Cancel");
-        grid.add(cancel,4, 10);
+        Button btnCreate = new Button("Create");
+        grid.add(btnCreate,5, 13);
+        Button btnCancel = new Button("Cancel");
+        grid.add(btnCancel,4, 13);
 
-        final Text
-        actiontarget = new Text();
+        final Text actiontarget = new Text();
+        grid.add(actiontarget, 5, 14);
 
-        grid.add(actiontarget, 5, 11);
-
-        //value box which shows all patient information
-        Label view = new Label("Patient Information");
-        view.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(view, 0, 12);
-
-        TextArea area = new TextArea();
-        area.setPrefHeight(100);
-        area.setPrefWidth(300);
-        grid.add(area, 0, 13, 2, 1); //i2 height i3 width
-
-        //once register is clicked, values will show
-        register.setOnAction(new EventHandler<ActionEvent>()
-        {
+        btnCreate.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent actionEvent)
-            {
-                System.out.println("Successfully Registered!");
+            public void handle(ActionEvent actionEvent) {
+                String id = IDTextField.getText().trim();
+                String patientName = patient.getValue();
+                String doctorName = doctor.getValue();
+                LocalDate localDate = dates.getValue();
 
-                //patient is registered
-                actiontarget.setFill(Color.GREEN);
-                actiontarget.setText("Patient is Registered");
-
-                //read patient id
-                String id = ptid.getText();
-
-                //read patient name
-                String name = patientName.getText();
-
-                //read patients phone number
-                String number = phoneNumber.getText();
-
-                //read gender
-                String patientGender = genderBox.getValue();
-
-                //read age
-                String patientAge = ages.getText();
-
-                String msg = "Patient ID :  " + id + "\n"
-                        +"Patient Name : " + name + "\n"
-                        +"Phone Number : " + number + "\n"
-                        +"Gender : " + patientGender + "\n"
-                        +"Age : " + patientAge;
-
-                area.setText(msg);
-
-                String fileLine = id + "\n" + name + "\n" + number + "\n" + patientGender + "\n" + patientAge + "\n";
-
-                // to text file
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter("patients.txt", true)))
-                {
-                    writer.write(fileLine);
-                    writer.newLine();
+                if (id.isEmpty() || patientName == null || doctorName == null || localDate == null) {
+                    actiontarget.setFill(Color.RED);
+                    actiontarget.setText("Please fill all fields");
+                    return;
                 }
-                catch (IOException e)
-                {
-                    System.err.println("Error writing to file: " + e.getMessage());
+
+                Date appointmentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+                Patient selectedPatient = null;
+                for (Patient p : admin.getAllPatients()) {
+                    if (p.getName().equals(patientName)) {
+                        selectedPatient = p;
+                        break;
+                    }
                 }
+
+                Doctor selectedDoctor = null;
+                for (Doctor d : admin.getAllDoctors()) {
+                    if (d.getName().equals(doctorName)) {
+                        selectedDoctor = d;
+                        break;
+                    }
+                }
+
+                if (selectedDoctor == null || selectedPatient == null) {
+                    actiontarget.setFill(Color.RED);
+                    actiontarget.setText("Selected patient or doctor not found");
+                    return;
+                }
+
+                Appointment appointment = new Appointment(id, appointmentDate, "Scheduled", selectedPatient, selectedDoctor);
+
+                admin.addAppointment(appointment);
+                admin.dataToTextFiles();
+
+                actiontarget.setFill(Color.LIGHTGREEN);
+                actiontarget.setText("Appointment saved successfully!");
+
+                System.out.println("Appointment ID : " + id + " saved successfully.");
+
+                IDTextField.clear();
+                patient.setValue(null);
+                doctor.setValue(null);
+                dates.setValue(null);
             }
         });
 
-        //registration is cancel
-        cancel.setOnAction(new EventHandler<ActionEvent>()
-        {
+        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent e)
-            {
+            public void handle(ActionEvent actionEvent) {
                 actiontarget.setFill(Color.DARKRED);
                 actiontarget.setText("Registration is Cancelled");
             }
         });
 
-        //side buttons
-        //actions
-        Button regDoctorBtn = new Button("Register Doctor");
-        Button createApptBtn = new Button("Create Appointment");
-        Button medHistoryBtn = new Button("Medical History");
-        Button genBillBtn = new Button("Generate Bill");
-        Button mainPageBtn = new Button("Main Page");
+
+        Button btnRegPatient = new Button("Register Patient");
+        Button btnRegDoctor = new Button("Register Doctor");
+        Button btnAddMed = new Button("Add Medical History");
+        Button btnGenBill = new Button("Generate Bill");
+        Button btnHome = new Button("Main Page");
 
         //regPatientBtn action
-        regDoctorBtn.setOnAction(new EventHandler<ActionEvent>()
+        btnRegPatient.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent event)
@@ -181,40 +163,40 @@ public class RegisterPatient
         });
 
         //createApptBtn action
-        createApptBtn.setOnAction(new EventHandler<ActionEvent>()
+        btnRegDoctor.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent event)
             {
-                CreateAppointment createApp = new CreateAppointment();
-                app.setScene(createApp.getView(app));
+                RegisterDoctorPanel doctorPanel = new RegisterDoctorPanel();
+                app.setScene(doctorPanel.getView(app));
             }
         });
 
         //medHistoryBtn action
-        medHistoryBtn.setOnAction(new EventHandler<ActionEvent>()
+        btnAddMed.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent event)
             {
                 AddMedicalHistory addMedicHistory = new AddMedicalHistory();
-                app.setScene(addMedicHistory.getView(app));
+                app.setScene(addMedicHistory.getView(app, new Admin()));
             }
         });
 
         //genBillBtn action
-        genBillBtn.setOnAction(new EventHandler<ActionEvent>()
+        btnGenBill.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent event)
             {
                 GenerateBill genBill = new GenerateBill();
-                app.setScene(genBill.getView(app));
+                app.setScene(genBill.getView(app, new Admin()));
             }
         });
 
         //mainPageBtn action
-        mainPageBtn.setOnAction(new EventHandler<ActionEvent>()
+        btnHome.setOnAction(new EventHandler<ActionEvent>()
         {
             @Override
             public void handle(ActionEvent e)
@@ -230,23 +212,22 @@ public class RegisterPatient
         sideBtns.setAlignment(Pos.TOP_LEFT);
 
         //size of letters, size of buttons
-        regDoctorBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
-        createApptBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
-        medHistoryBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
-        genBillBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
-        mainPageBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        btnRegPatient.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        btnRegDoctor.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        btnAddMed.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        btnGenBill.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        btnHome.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
 
         HBox contentLayout = new HBox();
         contentLayout.setPadding(new Insets(20));
         contentLayout.getChildren().addAll(sideBtns, grid);
         contentLayout.setAlignment(Pos.CENTER);
 
-        sideBtns.getChildren().addAll(regDoctorBtn, createApptBtn, medHistoryBtn, genBillBtn, mainPageBtn);
+        sideBtns.getChildren().addAll(btnRegPatient, btnRegDoctor, btnAddMed, btnGenBill, btnHome);
 
         VBox fullLayout = new VBox();
         fullLayout.getChildren().addAll(banner, contentLayout);
 
         return fullLayout;
     }
-
 }

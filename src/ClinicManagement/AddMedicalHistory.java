@@ -29,7 +29,7 @@ public class AddMedicalHistory
     public Parent getView (MainAppClinic app, Admin admin)
     {
         //patient banner
-        Text sceneTitle = new Text("PATIENT REGISTRATION");
+        Text sceneTitle = new Text("ADD MEDICAL HISTORY");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
 
         HBox banner = new HBox();

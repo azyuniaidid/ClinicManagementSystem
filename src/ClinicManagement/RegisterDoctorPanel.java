@@ -2,6 +2,7 @@ package ClinicManagement;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -11,20 +12,28 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 
 public class RegisterDoctorPanel {
     
     public Parent getView (MainAppClinic app){
-        
+
         //Clinic banner
-        Image image = new Image("file:C:\\Users\\User\\OneDrive\\Pictures\\Screenshots\\BannerClinic.jpg");
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(800);
-        imageView.setPreserveRatio(true);
-        
+        Text sceneTitle = new Text("DOCTOR REGISTRATION");
+        sceneTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
+
+        HBox banner = new HBox();
+        banner.setAlignment(Pos.CENTER);
+        banner.setPadding(new Insets(30)); //size of the green banner
+        banner.getChildren().add(sceneTitle);
+        banner.setStyle("-fx-background-color: #ADD378;");
+
+
         //sidebar menu 
         VBox sideBar = new VBox(10);
         sideBar.setPrefWidth(200);
@@ -146,7 +155,7 @@ public class RegisterDoctorPanel {
                 specializationLbl, specializationBox, chgperapptLbl, chgperapptField, regBtn, actionTarget);
         
         BorderPane layout = new BorderPane();
-        layout.setTop(imageView);
+        layout.setTop(banner);
         layout.setLeft(sideBar);
         layout.setCenter(form);
         return layout;

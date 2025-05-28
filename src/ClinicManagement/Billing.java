@@ -1,14 +1,16 @@
 package ClinicManagement;
 
+import java.util.Date;
+
 public class Billing {
     private String billID;
     private double amount;
-    private String date
+    private Date date;
     private Patient patient;
     private Doctor doctor;
     
 
-    public Billing(String billID, double amount, String date,  Patient patient, Doctor doctor) {
+    public Billing(String billID, double amount, Date date,  Patient patient, Doctor doctor) {
         this.billID = billID;
         this.amount = amount;
         this.date = date;
@@ -24,7 +26,7 @@ public class Billing {
         return amount;
     }
 
-    public String getDate()
+    public Date getDate()
   {
     return date;
   }
@@ -39,8 +41,8 @@ public class Billing {
     return doctor;
   }
 
-    public void generateBill(String billID, double amount, String date) {
-        this billID = billID;
+    public void generateBill(String billID, double amount, Date date) {
+        this.billID = billID;
         this.amount = amount;
         this.date = date;
         System.out.println("Bill generated successfully" );

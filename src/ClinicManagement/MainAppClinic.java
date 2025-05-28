@@ -30,8 +30,8 @@ public class MainAppClinic extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        admin.addPatient(new Patient("Aisyah", "0123232", "P001", "Female", 23));
-        admin.addDoctor(new Doctor("Dr. Ali", "D001", "0123232", "Cardiology", 44.5 ));
+        admin.addPatient(new Patient("Ali", "0111113456", "P001", "Male", 21));
+        admin.addDoctor(new Doctor("Abu", "D001", "0122222345", "Ortho", 32.9));
         this.primaryStage = primaryStage;
         Parent root = mainInterface();
         scene = new Scene(root, 800, 700);
@@ -64,14 +64,14 @@ public class MainAppClinic extends Application {
         Button btnPatient = new Button("Register Patient");
         Button btnDoctor = new Button("Register Doctor");
         Button btnAppointment = new Button("Create Appointment");
-        //Button btnMedicalHistory = new Button("Add Medical History");
-        //Button btnBill = new Button("Generate Bill");
+        Button btnMedicalHistory = new Button("Add Medical History");
+        Button btnBill = new Button("Generate Bill");
 
         btnPatient.setPrefWidth(200);
         btnDoctor.setPrefWidth(200);
         btnAppointment.setPrefWidth(200);
-        //btnMedicalHistory.setPrefWidth(200);
-       //btnBill.setPrefWidth(200);
+        btnMedicalHistory.setPrefWidth(200);
+       btnBill.setPrefWidth(200);
 
 
         btnPatient.setOnAction(new EventHandler<ActionEvent>() {
@@ -94,26 +94,24 @@ public class MainAppClinic extends Application {
                 setScene(createAppointment.getView(MainAppClinic.this, admin));
             }
         });
-/*
+
         btnMedicalHistory.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                setScene(addMedicalHistory.getView(MainAppClinic.this));
+                setScene(addMedicalHistory.getView(MainAppClinic.this, admin));
             }
         });
 
         btnBill.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                setScene(generateBill.getView(MainAppClinic.this));
+                setScene(generateBill.getView(MainAppClinic.this, admin));
             }
         });
 
- */
 
         layout.getChildren().addAll(
-                btnPatient, btnDoctor, btnAppointment
-                //, btnMedicalHistory, btnBill
+                btnPatient, btnDoctor, btnAppointment, btnMedicalHistory, btnBill
         );
 
         return layout;

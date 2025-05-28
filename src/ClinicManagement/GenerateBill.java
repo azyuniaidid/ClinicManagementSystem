@@ -260,7 +260,7 @@ public class GenerateBill {
         });
 
         BorderPane layout = new BorderPane();
-        layout.setTop(imageView);
+        layout.setTop(banner);
         layout.setLeft(sideBar);
         layout.setCenter(grid);
         return layout;

@@ -1,5 +1,6 @@
-package com.example.oop_uiproject;
+package ClinicManagement;
 
+import ClinicManagement.MainAppClinic;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -174,7 +175,7 @@ public class RegisterPatient
             @Override
             public void handle(ActionEvent event)
             {
-                RegisterDoctor regDoctor = new RegisterDoctor();
+                RegisterDoctorPanel regDoctor = new RegisterDoctorPanel();
                 app.setScene(regDoctor.getView(app));
             }
         });
@@ -186,7 +187,7 @@ public class RegisterPatient
             public void handle(ActionEvent event)
             {
                 CreateAppointment createApp = new CreateAppointment();
-                app.setScene(createApp.getView(app));
+                app.setScene(createApp.getView(app, new Admin()));
             }
         });
 
@@ -197,7 +198,7 @@ public class RegisterPatient
             public void handle(ActionEvent event)
             {
                 AddMedicalHistory addMedicHistory = new AddMedicalHistory();
-                app.setScene(addMedicHistory.getView(app));
+                app.setScene(addMedicHistory.getView(app, new Admin()));
             }
         });
 
@@ -208,7 +209,7 @@ public class RegisterPatient
             public void handle(ActionEvent event)
             {
                 GenerateBill genBill = new GenerateBill();
-                app.setScene(genBill.getView(app));
+                app.setScene(genBill.getView(app, new Admin()));
             }
         });
 

@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -31,10 +32,14 @@ public class GenerateBill {
     public Parent getView (MainAppClinic app, Admin admin){
         
         //Clinic banner
-        Image image = new Image("file:///C:/Users/User/Pictures/BannerBill.jpg");
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(800);
-        imageView.setPreserveRatio(true);
+        Text sceneTitle = new Text("GENERATE BILL");
+        sceneTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
+
+        HBox banner = new HBox();
+        banner.setAlignment(Pos.CENTER);
+        banner.setPadding(new Insets(30)); //size of the green banner
+        banner.getChildren().add(sceneTitle);
+        banner.setStyle("-fx-background-color: #ADD378;");
         
         //grid banner layout
         GridPane grid = new GridPane();

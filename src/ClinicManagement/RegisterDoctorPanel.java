@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
 public class RegisterDoctorPanel {
     
     public Parent getView (MainAppClinic app){
-        
+
         //Clinic banner
         Text sceneTitle = new Text("DOCTOR REGISTRATION");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
@@ -32,7 +32,8 @@ public class RegisterDoctorPanel {
         banner.setPadding(new Insets(30)); //size of the green banner
         banner.getChildren().add(sceneTitle);
         banner.setStyle("-fx-background-color: #ADD378;");
-        
+
+
         //sidebar menu 
         VBox sideBar = new VBox(10);
         sideBar.setPrefWidth(200);
@@ -98,28 +99,28 @@ public class RegisterDoctorPanel {
             @Override
             public void handle(ActionEvent event) {
                 CreateAppointment createApp = new CreateAppointment();
-                app.setScene(createApp.getView(app));
+                app.setScene(createApp.getView(app, new Admin()));
             }
         });
-        
+
         //medHistoryBtn action
         genBillBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 AddMedicalHistory addMedicHistory = new AddMedicalHistory();
-                app.setScene(addMedicHistory.getView(app));
+                app.setScene(addMedicHistory.getView(app, new Admin()));
             }
         });
-        
+
         //genBillBtn action
         medHistoryBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 GenerateBill genBill = new GenerateBill();
-                app.setScene(genBill.getView(app));
+                app.setScene(genBill.getView(app,new Admin()));
             }
         });
-        
+
         //mainPageBtn action
         mainPageBtn.setOnAction(new EventHandler<ActionEvent>()
         {

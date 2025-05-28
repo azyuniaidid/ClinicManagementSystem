@@ -16,16 +16,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import javax.print.Doc;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
 public class CreateAppointment {
     public Parent getView(MainAppClinic app, Admin admin){
-        VBox layout = new VBox(20);
-        layout.setPadding(new Insets(20));
-        layout.setAlignment(Pos.CENTER);
 
         Text sceneTitle = new Text("CREATE APPOINTMENT");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
@@ -36,33 +32,11 @@ public class CreateAppointment {
         banner.getChildren().add(sceneTitle);
         banner.setStyle("-fx-background-color: #ADD378;");
 
-        layout.getChildren().add(banner);
-
         GridPane grid = new GridPane();
         grid.setVgap(10);
         grid.setHgap(10);
         grid.setAlignment(Pos.CENTER);
-/*
-        VBox sideMenu = new VBox(15);
-        sideMenu.setPadding(new Insets(20));
-        sideMenu.setStyle("-fx-background-color: white;");
-        sideMenu.setPrefWidth(180);
 
-        Button btnRegisterPatient = new Button("REGISTER PATIENT");
-        Button btnRegisterDoctor = new Button("REGISTER DOCTOR");
-        Button btnMedicalHistory = new Button("MEDICAL HISTORY");
-        Button btnGenerateBill = new Button("GENERATE BILL");
-        Button btnHome = new Button("← HOME");
-
-        btnRegisterPatient.setMaxWidth(Double.MAX_VALUE);
-        btnRegisterDoctor.setMaxWidth(Double.MAX_VALUE);
-        btnMedicalHistory.setMaxWidth(Double.MAX_VALUE);
-        btnGenerateBill.setMaxWidth(Double.MAX_VALUE);
-        btnHome.setMaxWidth(Double.MAX_VALUE);
-
-        sideMenu.getChildren().addAll(btnRegisterPatient, btnRegisterDoctor, btnMedicalHistory, btnGenerateBill, btnHome);
-
- */
         Label appointmentID = new Label("Appointment ID : ");
         Label patientName = new Label("Patient Name : ");
         Label doctorName = new Label("Doctor Name : ");
@@ -94,16 +68,13 @@ public class CreateAppointment {
         DatePicker dates = new DatePicker();
         grid.add(dates, 0, 12);
 
-        Button btnCreate = new Button("Save");
-        Button btnHome = new Button("Home");
-
-        HBox hbtn = new HBox(20);
-        hbtn.setAlignment((Pos.CENTER));
-        hbtn.getChildren().addAll(btnCreate, btnHome);
-        grid.add(hbtn, 0, 14, 4, 1);
+        Button btnCreate = new Button("Create");
+        grid.add(btnCreate,5, 13);
+        Button btnCancel = new Button("Cancel");
+        grid.add(btnCancel,4, 13);
 
         final Text actiontarget = new Text();
-        grid.add(actiontarget, 1, 15);
+        grid.add(actiontarget, 5, 14);
 
         btnCreate.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -160,14 +131,98 @@ public class CreateAppointment {
             }
         });
 
-        btnHome.setOnAction(new EventHandler<ActionEvent>() {
+        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-               app.setScene(app.getDashboard());
+                actiontarget.setFill(Color.DARKRED);
+                actiontarget.setText("Registration is Cancelled");
             }
         });
 
-        layout.getChildren().add(grid);
-        return layout;
+
+        Button btnRegPatient = new Button("Register Patient");
+        Button btnRegDoctor = new Button("Register Doctor");
+        Button btnAddMed = new Button("Add Medical History");
+        Button btnGenBill = new Button("Generate Bill");
+        Button btnHome = new Button("Main Page");
+
+        //regPatientBtn action
+        btnRegPatient.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                RegisterPatient registerPatient = new RegisterPatient();
+                app.setScene(registerPatient.getView(app));
+            }
+        });
+
+        //createApptBtn action
+        btnRegDoctor.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                RegisterDoctorPanel doctorPanel = new RegisterDoctorPanel();
+                app.setScene(doctorPanel.getView(app));
+            }
+        });
+
+        //medHistoryBtn action
+        btnAddMed.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                AddMedicalHistory addMedicHistory = new AddMedicalHistory();
+                app.setScene(addMedicHistory.getView(app, new Admin()));
+            }
+        });
+
+        //genBillBtn action
+        btnGenBill.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                GenerateBill genBill = new GenerateBill();
+                app.setScene(genBill.getView(app, new Admin()));
+            }
+        });
+
+        //mainPageBtn action
+        btnHome.setOnAction(new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent e)
+            {
+                app.setScene(app.getDashboard());
+            }
+        });
+
+        //buttons at the side
+        VBox sideBtns = new VBox(10);
+        sideBtns.setPrefWidth(10);
+        sideBtns.setPadding(new Insets(10));
+        sideBtns.setAlignment(Pos.TOP_LEFT);
+
+        //size of letters, size of buttons
+        btnRegPatient.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        btnRegDoctor.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        btnAddMed.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        btnGenBill.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+        btnHome.setStyle("-fx-font-size: 14px; -fx-min-width: 150px;");
+
+        HBox contentLayout = new HBox();
+        contentLayout.setPadding(new Insets(20));
+        contentLayout.getChildren().addAll(sideBtns, grid);
+        //contentLayout.setAlignment(Pos.CENTER);
+
+        sideBtns.getChildren().addAll(btnRegPatient, btnRegDoctor, btnAddMed, btnGenBill, btnHome);
+
+        VBox fullLayout = new VBox();
+        fullLayout.getChildren().addAll(banner, contentLayout);
+
+        return fullLayout;
     }
 }

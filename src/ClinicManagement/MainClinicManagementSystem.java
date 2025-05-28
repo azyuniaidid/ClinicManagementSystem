@@ -158,10 +158,13 @@ public class MainClinicManagementSystem {
                     int doctorIndexForBill = input.nextInt();
                     input.nextLine();
 
+                    System.out.print("Enter Billing ID: ");
+                    String billID = input.nextLine();
+
                     // Create Billing and generate it
                     double amount = admin.getAllDoctors().get(doctorIndexForBill).getChgperappt();
-                    Billing billing = new Billing("B001", amount, false, admin.getAllPatients().get(patientIndexForBill), admin.getAllDoctors().get(doctorIndexForBill));
-                    billing.generateBill(amount);
+                    Billing billing = new Billing(billID, amount, new java.util.Date(), admin.getAllPatients().get(patientIndexForBill), admin.getAllDoctors().get(doctorIndexForBill));
+                    billing.generateBill(billID, amount, new java.util.Date());
                     admin.addBillings(billing);
                     admin.dataToTextFiles();
                     System.out.println("Billing generated successfully.");

@@ -82,7 +82,6 @@ public class GenerateBill {
         //patient.getItems().addAll("Aisyah binti Ali","Option-2","Option-3");
         patient.setPromptText("Select Patient");
         
-        
         for(Patient p : admin.getAllPatients()){
             patient.getItems().add(p.getName());
         }
@@ -141,12 +140,12 @@ public class GenerateBill {
         grid.add(payMethod,0,11);
         
          //button
-        HBox buttonBox = new HBox(10); // spacing between buttons
-        buttonBox.setAlignment(Pos.BOTTOM_RIGHT); // align buttons to the left
+        HBox buttonBox = new HBox(10); 
+        buttonBox.setAlignment(Pos.BOTTOM_RIGHT); 
         Button btnCancel = new Button("Cancel");
         Button btnGenerate = new Button("Generate");
         buttonBox.getChildren().addAll(btnCancel,btnGenerate);
-        grid.add(buttonBox, 0, 12, 2, 1); //i2=going right i3=going down
+        grid.add(buttonBox, 0, 12, 2, 1); 
    
         
         final Text actionTarget = new Text();

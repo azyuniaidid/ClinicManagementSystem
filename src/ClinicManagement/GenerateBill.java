@@ -79,7 +79,7 @@ public class GenerateBill {
         ptList.setFont(Font.font("Arial", FontWeight.BOLD,15));
         grid.add(ptList, 0, 0);
         ComboBox<String> patient = new ComboBox<>();
-        patient.getItems().addAll("1-Aisyah binti Ali","Option-2","Option-3");
+        //patient.getItems().addAll("Aisyah binti Ali","Option-2","Option-3");
         patient.setPromptText("Select Patient");
         
         
@@ -94,7 +94,7 @@ public class GenerateBill {
         docList.setFont(Font.font("Arial", FontWeight.BOLD,15));
         grid.add(docList, 0, 2);
         ComboBox<String> doctor = new ComboBox<>();
-        doctor.getItems().addAll("1-Aminah binti Abu","Option-2","Option-3");
+        //doctor.getItems().addAll("Aminah binti Abu","Option-2","Option-3");
         doctor.setPromptText("Select Doctor");
         
         for(Doctor d : admin.getAllDoctors()){

@@ -67,61 +67,43 @@ public class AddMedicalHistory
         }
         grid.add(patient, 0, 1);
 
-        //patient index
-        Label ptIndexLabel = new Label("Patient Index:");
-        ptIndexLabel.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(ptIndexLabel, 0, 2);
-        TextField ptIndex = new TextField();
-        ptIndex.setPromptText("Enter Patient Index");
-        ptIndex.setPrefWidth(500);
-        grid.add(ptIndex,0,3);
-
         //list of doctors
         Label docList = new Label("List of Doctors:");
         docList.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(docList, 0, 4);
+        grid.add(docList, 0, 2);
         ComboBox<String> doctor = new ComboBox<>();
         doctor.setPromptText("Select Doctor");
         for(Doctor d : admin.getAllDoctors()){
             doctor.getItems().add(d.getName());
         }
-        grid.add(doctor,0, 5);
-
-        //doctor index
-        Label docIndexLabel = new Label("Doctor Index:");
-        docIndexLabel.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(docIndexLabel, 0, 6);
-        TextField docIndex = new TextField();
-        docIndex.setPromptText("Enter Doctor Index");
-        docIndex.setPrefWidth(500);
-        grid.add(docIndex,0,7);
+        grid.add(doctor,0, 3);
 
         //diagnosis
         Label diagnosisLabel = new Label("Diagnosis:");
         diagnosisLabel.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(diagnosisLabel, 0, 8);
+        grid.add(diagnosisLabel, 0, 4);
         TextField diagnosis = new TextField();
         diagnosis.setPromptText("Enter Diagnosis");
         diagnosis.setPrefWidth(500);
-        grid.add(diagnosis,0,9);
+        grid.add(diagnosis,0,5);
 
         //prescription
         Label prescriptionLabel = new Label("Prescription:");
         prescriptionLabel.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(prescriptionLabel, 0, 10);
+        grid.add(prescriptionLabel, 0, 6);
         TextField prescription = new TextField();
         prescription.setPromptText("Enter Prescription");
         prescription.setPrefWidth(500);
-        grid.add(prescription,0,11);
+        grid.add(prescription,0,7);
 
         //date
         Label dateLabel = new Label("Date:");
         dateLabel.setFont(Font.font("Arial", FontWeight.BOLD,15));
-        grid.add(dateLabel, 0, 12);
+        grid.add(dateLabel, 0, 8);
         DatePicker dates = new DatePicker();
         dates.setPromptText("Choose Date");
         dates.setPrefWidth(500);
-        grid.add(dates, 0, 13);
+        grid.add(dates, 0, 9);
         
         //display medical history information 
         VBox infoBox = new VBox(10);
@@ -154,9 +136,7 @@ public class AddMedicalHistory
             {
                 actionTarget.setFill(Color.DARKRED);
                 patient.getSelectionModel().clearSelection();
-                ptIndex.clear();
                 doctor.getSelectionModel().clearSelection();
-                docIndex.clear();
                 diagnosis.clear();
                 prescription.clear();
                 dates.setValue(null);

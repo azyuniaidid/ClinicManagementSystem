@@ -153,10 +153,8 @@ public class GenerateBill {
         grid.add(actionTarget, 0, 13, 2, 1);
         GridPane.setHalignment(actionTarget, HPos.RIGHT);
         grid.setPrefWidth(600);
+
         
-        //actions
-        
-         
         //value box which shows bill information
         VBox infoBox = new VBox(10);
         Label viewBill = new Label("Billing Information");

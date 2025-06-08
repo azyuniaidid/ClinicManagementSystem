@@ -1,3 +1,4 @@
+
 package ClinicManagement;
 
 import java.io.BufferedWriter;
@@ -87,7 +88,7 @@ public class RegisterDoctorPanel {
         });
 
         //medHistoryBtn action
-        genBillBtn.setOnAction(new EventHandler<ActionEvent>() {
+        medHistoryBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 AddMedicalHistory addMedicHistory = new AddMedicalHistory();
@@ -96,7 +97,7 @@ public class RegisterDoctorPanel {
         });
 
         //genBillBtn action
-        medHistoryBtn.setOnAction(new EventHandler<ActionEvent>() {
+        genBillBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 GenerateBill genBill = new GenerateBill();
@@ -248,15 +249,17 @@ public class RegisterDoctorPanel {
                 actionTarget.setText("Registration is Cancelled");
             }
         });
-        
+
+        //box for form
         HBox form = new HBox(30); 
         form.getChildren().addAll(grid);
         form.setAlignment(Pos.TOP_CENTER);
-        
+
+        //box for info
         HBox info = new HBox(30);
         info.getChildren().add(infoBox);
         form.setAlignment(Pos.TOP_RIGHT);
-        
+
         HBox contentLayout = new HBox(30);
         contentLayout.setPadding(new Insets(20));
         contentLayout.getChildren().addAll(sideBar, form, info);

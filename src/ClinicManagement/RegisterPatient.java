@@ -1,4 +1,4 @@
-package com.example.oop_uiproject;
+package ClinicManagement;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -200,7 +200,7 @@ public class RegisterPatient
             @Override
             public void handle(ActionEvent event)
             {
-                RegisterDoctor regDoctor = new RegisterDoctor();
+                RegisterDoctorPanel regDoctor = new RegisterDoctorPanel();
                 app.setScene(regDoctor.getView(app));
             }
         });

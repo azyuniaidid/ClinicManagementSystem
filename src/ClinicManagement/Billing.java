@@ -5,14 +5,16 @@ import java.util.Date;
 public class Billing {
     private String billID;
     private double amount;
+    private String payMethod;
     private Date date;
     private Patient patient;
     private Doctor doctor;
     
 
-    public Billing(String billID, double amount, Date date,  Patient patient, Doctor doctor) {
+    public Billing(String billID, double amount, String payMethod, Date date,  Patient patient, Doctor doctor) {
         this.billID = billID;
         this.amount = amount;
+        this.payMethod = payMethod;
         this.date = date;
         this.patient = patient;
         this.doctor = doctor;
@@ -24,6 +26,10 @@ public class Billing {
 
     public double getAmount() {
         return amount;
+    }
+
+     public String getPayMethod() {
+        return payMethod;
     }
 
     public Date getDate()
@@ -41,9 +47,10 @@ public class Billing {
     return doctor;
   }
 
-    public void generateBill(String billID, double amount, Date date) {
+    public void generateBill(String billID, double amount, String payMethod, Date date) {
         this.billID = billID;
         this.amount = amount;
+        this.payMethod = payMethod;
         this.date = date;
         System.out.println("Bill generated successfully" );
         
@@ -53,7 +60,8 @@ public class Billing {
         System.out.println("\n=== Billing Information ===");
         System.out.println("Bill ID      : " + billID);
         System.out.printf("Amount       : RM%.2f\n", amount);
-        System.out.printf("Bill generated on       : " + date);
+        System.out.println("Payment Method       : "+ payMethod);
+        System.out.println("Bill generated on       : " + date);
         System.out.println("============================");
     }
 
@@ -61,7 +69,7 @@ public class Billing {
 
     @Override
     public String toString() {
-        return billID + " " + amount + " " + 
+        return billID + " " + amount + " " + payMethod + " " + 
                 (patient != null ? patient.getPatientID() : "N/A") + " " +
                 (patient != null ? patient.getName() : "N/A");
     }

@@ -35,7 +35,7 @@ public class MainAppClinic extends Application {
         this.primaryStage = primaryStage;
         Parent root = mainInterface();
         scene = new Scene(root, 1000, 600);
-        primaryStage.setTitle("@ClinicMesra");
+        primaryStage.setTitle("Clinic Appointment and Management System");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -46,9 +46,9 @@ public class MainAppClinic extends Application {
         layout.setAlignment(Pos.CENTER);
 
         // Clinic banner
-        Image image = new Image("file:C:/Users/User/Downloads/HomepageBan.png");
+        Image image = new Image("file:/Users/aisyahhafizar/Downloads/1.png");
         ImageView banner = new ImageView(image);
-        banner.setFitHeight(200);
+        banner.setFitHeight(220);
         banner.setFitWidth(1340);
 
         layout.getChildren().add(banner);

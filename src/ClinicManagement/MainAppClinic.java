@@ -6,9 +6,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -20,11 +20,11 @@ public class MainAppClinic extends Application {
 
     private Stage primaryStage;
     private Scene scene;
-    private final RegisterPatient registerPatient = new RegisterPatient();
-    private final RegisterDoctorPanel registerDoctor = new RegisterDoctorPanel();
-    private final CreateAppointment createAppointment = new CreateAppointment();
-    private final AddMedicalHistory addMedicalHistory = new AddMedicalHistory();
-    private final GenerateBill generateBill = new GenerateBill();
+    private final PatientRegistration registerPatient = new PatientRegistration();
+    private final DoctorRegistration registerDoctor = new DoctorRegistration();
+    private final AppointmentManager createAppointment = new AppointmentManager();
+    private final MedicalHistoryManager addMedicalHistory = new MedicalHistoryManager();
+    private final BillGenerator generateBill = new BillGenerator();
 
     private final Admin admin = new Admin();
     @Override
@@ -34,7 +34,7 @@ public class MainAppClinic extends Application {
         admin.addDoctor(new Doctor("Abu", "D001", "0122222345", "Ortho", 32.9));
         this.primaryStage = primaryStage;
         Parent root = mainInterface();
-        scene = new Scene(root, 800, 700);
+        scene = new Scene(root, 1000, 600);
         primaryStage.setTitle("@ClinicMesra");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -45,14 +45,11 @@ public class MainAppClinic extends Application {
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 
-        Text sceneTitle = new Text("Clinic Management System");
-        sceneTitle.setFont(Font.font("Tahoma", FontWeight.BOLD, 20));
-
-        HBox banner = new HBox();
-        banner.setAlignment(Pos.CENTER);
-        banner.setPadding(new Insets(30)); // Size of banner
-        banner.getChildren().add(sceneTitle);
-        banner.setStyle("-fx-background-color: #ADD378;");
+        // Clinic banner
+        Image image = new Image("file:C:/Users/User/Downloads/HomepageBan.png");
+        ImageView banner = new ImageView(image);
+        banner.setFitHeight(200);
+        banner.setFitWidth(1340);
 
         layout.getChildren().add(banner);
 
@@ -61,17 +58,17 @@ public class MainAppClinic extends Application {
         grid.setHgap(10);
         grid.setAlignment(Pos.CENTER);
 
-        Button btnPatient = new Button("Register Patient");
-        Button btnDoctor = new Button("Register Doctor");
-        Button btnAppointment = new Button("Create Appointment");
-        Button btnMedicalHistory = new Button("Add Medical History");
-        Button btnBill = new Button("Generate Bill");
+        Button btnPatient = new Button("Patient Registration");
+        Button btnDoctor = new Button("Doctor Registration");
+        Button btnAppointment = new Button("Appointment Manager");
+        Button btnMedicalHistory = new Button("Medical History Manager");
+        Button btnBill = new Button("Bill Generator");
 
-        btnPatient.setPrefWidth(200);
-        btnDoctor.setPrefWidth(200);
-        btnAppointment.setPrefWidth(200);
-        btnMedicalHistory.setPrefWidth(200);
-       btnBill.setPrefWidth(200);
+        btnPatient.setStyle("-fx-font-size: 14px; -fx-min-width: 200px; -fx-min-height: 50px");;
+        btnDoctor.setStyle("-fx-font-size: 14px; -fx-min-width: 200px; -fx-min-height: 50px");
+        btnAppointment.setStyle("-fx-font-size: 14px; -fx-min-width: 200px; -fx-min-height: 50px");
+        btnMedicalHistory.setStyle("-fx-font-size: 14px; -fx-min-width: 200px; -fx-min-height: 50px");
+        btnBill.setStyle("-fx-font-size: 14px; -fx-min-width: 200px; -fx-min-height: 50px");
 
 
         btnPatient.setOnAction(new EventHandler<ActionEvent>() {
@@ -105,7 +102,7 @@ public class MainAppClinic extends Application {
         btnBill.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                setScene(generateBill.getView(MainAppClinic.this, admin));
+                setScene(generateBill.getView(MainAppClinic.this, new Admin()));
             }
         });
 

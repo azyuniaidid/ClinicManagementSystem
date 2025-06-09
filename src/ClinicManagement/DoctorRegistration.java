@@ -26,15 +26,15 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 
-public class RegisterDoctorPanel {
+public class DoctorRegistration {
     
     public Parent getView(MainAppClinic app){
 
         //Clinic banner
-        Image image = new Image("file:/C:/Users/User/OneDrive/Pictures/Screenshots/Screenshot%202025-06-08%20003812.png");
+        Image image = new Image("file:C:/Users/User/Downloads/DocRegBan.png");
         ImageView bannerDoctor = new ImageView(image);
         bannerDoctor.setFitHeight(200);
-        bannerDoctor.setFitWidth(1400);
+        bannerDoctor.setFitWidth(1290);
         
         HBox banner = new HBox();
         banner.setAlignment(Pos.CENTER);
@@ -52,10 +52,10 @@ public class RegisterDoctorPanel {
         grid.setPrefWidth(650);
         
         //sidebar buttons & actions
-        Button regPatientBtn = new Button("Register Patient");
-        Button createApptBtn = new Button("Create Appointment");
-        Button medHistoryBtn = new Button("Medical History");
-        Button genBillBtn = new Button("Generate Bill");
+        Button regPatientBtn = new Button("Patient Registration");
+        Button createApptBtn = new Button("Appointment Manager");
+        Button medHistoryBtn = new Button("Medical History Manager");
+        Button genBillBtn = new Button("Bill Generator");
         Button mainPageBtn = new Button("Main Page");
         
         VBox sideBar = new VBox(10);
@@ -73,7 +73,7 @@ public class RegisterDoctorPanel {
         regPatientBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                RegisterPatient registerPatient = new RegisterPatient();
+                PatientRegistration registerPatient = new PatientRegistration();
                 app.setScene(registerPatient.getView(app));
             }
         });
@@ -82,7 +82,7 @@ public class RegisterDoctorPanel {
         createApptBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                CreateAppointment createApp = new CreateAppointment();
+                AppointmentManager createApp = new AppointmentManager();
                 app.setScene(createApp.getView(app, new Admin()));
             }
         });
@@ -91,7 +91,7 @@ public class RegisterDoctorPanel {
         medHistoryBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                AddMedicalHistory addMedicHistory = new AddMedicalHistory();
+                MedicalHistoryManager addMedicHistory = new MedicalHistoryManager();
                 app.setScene(addMedicHistory.getView(app, new Admin()));
             }
         });
@@ -100,7 +100,7 @@ public class RegisterDoctorPanel {
         genBillBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                GenerateBill genBill = new GenerateBill();
+                BillGenerator genBill = new BillGenerator();
                 app.setScene(genBill.getView(app,new Admin()));
             }
         });

@@ -20,16 +20,16 @@ import javafx.scene.layout.VBox;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-public class RegisterPatient
+public class PatientRegistration
 {
     public Parent getView(MainAppClinic app)
     {
         //Clinic banner
         // Load an image (from URL or local resource)
-        Image image = new Image("file:/Users/aisyahhafizar/Downloads/3.png");
+        Image image = new Image("file:C:/Users/User/Downloads/PatientRegBan.png");
         ImageView bannerPatient = new ImageView(image);
         bannerPatient.setFitHeight(200);
-        bannerPatient.setFitWidth(1400);
+        bannerPatient.setFitWidth(1290);
 
         //add banner
         HBox banner = new HBox();
@@ -188,10 +188,10 @@ public class RegisterPatient
 
         //side buttons
         //actions
-        Button regDoctorBtn = new Button("Register Doctor");
-        Button createApptBtn = new Button("Create Appointment");
-        Button medHistoryBtn = new Button("Medical History");
-        Button genBillBtn = new Button("Generate Bill");
+        Button regDoctorBtn = new Button("Doctor Registration");
+        Button createApptBtn = new Button("Appointment Manager");
+        Button medHistoryBtn = new Button("Medical History Manager");
+        Button genBillBtn = new Button("Bill Generator");
         Button mainPageBtn = new Button("Main Page");
 
         //regPatientBtn action
@@ -200,7 +200,7 @@ public class RegisterPatient
             @Override
             public void handle(ActionEvent event)
             {
-                RegisterDoctorPanel regDoctor = new RegisterDoctorPanel();
+                DoctorRegistration regDoctor = new DoctorRegistration();
                 app.setScene(regDoctor.getView(app));
             }
         });
@@ -211,7 +211,7 @@ public class RegisterPatient
             @Override
             public void handle(ActionEvent event)
             {
-                CreateAppointment createApp = new CreateAppointment();
+                AppointmentManager createApp = new AppointmentManager();
                 app.setScene(createApp.getView(app, new Admin()));
             }
         });
@@ -222,7 +222,7 @@ public class RegisterPatient
             @Override
             public void handle(ActionEvent event)
             {
-                AddMedicalHistory addMedicHistory = new AddMedicalHistory();
+                MedicalHistoryManager addMedicHistory = new MedicalHistoryManager();
                 app.setScene(addMedicHistory.getView(app, new Admin()));
             }
         });
@@ -233,7 +233,7 @@ public class RegisterPatient
             @Override
             public void handle(ActionEvent event)
             {
-                GenerateBill genBill = new GenerateBill();
+                BillGenerator genBill = new BillGenerator();
                 app.setScene(genBill.getView(app, new Admin()));
             }
         });

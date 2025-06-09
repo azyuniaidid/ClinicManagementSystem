@@ -12,32 +12,30 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javax.print.Doc;
+
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+
 import javafx.geometry.HPos;
 
 /**
  *
  * @author Surface
  */
-public class AddMedicalHistory
+public class MedicalHistoryManager
 {
     public Parent getView (MainAppClinic app, Admin admin)
     {
         //Load an image (from URL or local resource)
-        Image image = new Image("file:/Users/Surface/Downloads/5.png");
+        Image image = new Image("file:C:/Users/User/Downloads/MedHisBan.png");
         ImageView bannerMedicalHistory = new ImageView(image);
         bannerMedicalHistory.setFitHeight(200);
-        bannerMedicalHistory.setFitWidth(1400);
+        bannerMedicalHistory.setFitWidth(1290);
         
         //add banner
         HBox banner = new HBox();
@@ -219,10 +217,10 @@ public class AddMedicalHistory
             }
         });
 
-        Button btnRegPatient = new Button("Register Patient");
-        Button btnRegDoctor = new Button("Register Doctor");
-        Button btnCreateAppt = new Button("Create Appointment");
-        Button btnGenBill = new Button("Generate Bill");
+        Button btnRegPatient = new Button("Patient Registration");
+        Button btnRegDoctor = new Button("Doctor Registration");
+        Button btnCreateAppt = new Button("Appointment Manager");
+        Button btnGenBill = new Button("Bill Generator");
         Button btnHome = new Button("Main Page");
 
 
@@ -232,7 +230,7 @@ public class AddMedicalHistory
             @Override
             public void handle(ActionEvent event)
             {
-                RegisterPatient registerPatient = new RegisterPatient();
+                PatientRegistration registerPatient = new PatientRegistration();
                 app.setScene(registerPatient.getView(app));
             }
         });
@@ -244,7 +242,7 @@ public class AddMedicalHistory
             @Override
             public void handle(ActionEvent event)
             {
-                RegisterDoctorPanel doctorPanel = new RegisterDoctorPanel();
+                DoctorRegistration doctorPanel = new DoctorRegistration();
                 app.setScene(doctorPanel.getView(app));
             }
         });
@@ -256,7 +254,7 @@ public class AddMedicalHistory
             @Override
             public void handle(ActionEvent event)
             {
-                CreateAppointment createAppointment = new CreateAppointment();
+                AppointmentManager createAppointment = new AppointmentManager();
                 app.setScene(createAppointment.getView(app, new Admin()));
             }
         });
@@ -268,7 +266,7 @@ public class AddMedicalHistory
             @Override
             public void handle(ActionEvent event)
             {
-                GenerateBill genBill = new GenerateBill();
+                BillGenerator genBill = new BillGenerator();
                 app.setScene(genBill.getView(app, new Admin()));
             }
         });

@@ -28,15 +28,15 @@ import javafx.scene.text.Text;
  *
  * @author User
  */
-public class GenerateBill {
+public class BillGenerator {
     
-    public Parent getView (MainAppClinic app){
+    public Parent getView (MainAppClinic app,Admin admin ){
         
          //Clinic banner
-        Image image = new Image("file:C:/Users/User/Pictures/BannerBill.jpg");
+        Image image = new Image("file:C:/Users/User/Downloads/BillGenBan.png");
         ImageView bannerBill = new ImageView(image);
         bannerBill.setFitHeight(200);
-        bannerBill.setFitWidth(1400);
+        bannerBill.setFitWidth(1290);
 
         HBox banner = new HBox();
         banner.setAlignment(Pos.CENTER);
@@ -59,10 +59,10 @@ public class GenerateBill {
         sideBar.setPadding(new Insets(10));
         sideBar.setAlignment(Pos.TOP_LEFT);
         
-        Button regPatientBtn = new Button("Register Patient");
-        Button regDocBtn = new Button("Register Doctor");
-        Button createApptBtn = new Button("Create Appointment");
-        Button medHistoryBtn = new Button("Medical History");
+        Button regPatientBtn = new Button("Patient Registration");
+        Button regDocBtn = new Button("Doctor Registration");
+        Button createApptBtn = new Button("Appointment Manager");
+        Button medHistoryBtn = new Button("Medical History Manager");
         Button mainPageBtn = new Button("Main Page");
         
         regPatientBtn.setStyle("-fx-font-size: 14px; -fx-min-width: 200px; -fx-min-height: 50px");
@@ -205,7 +205,7 @@ public class GenerateBill {
                 }
                 
                 
-                if(selectedPatientName == null || selectedDoctorName == null || billID.isEmpty() || amount.isEmpty() || selectedDate == null) {
+                if(selectedPatientName == null || selectedDoctorName == null || billID.isEmpty() || selectedPayMethod.isEmpty() || selectedDate == null) {
                     actionTarget.setFill(Color.RED);
                     actionTarget.setText("Please fill in all fields.");
                     return;
@@ -279,7 +279,7 @@ public class GenerateBill {
         regPatientBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                RegisterPatient regPatient = new RegisterPatient();
+                PatientRegistration regPatient = new PatientRegistration();
                 app.setScene(regPatient.getView(app));
             }
         });
@@ -289,7 +289,7 @@ public class GenerateBill {
         regDocBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                RegisterDoctorPanel regDoctor = new RegisterDoctorPanel();
+                DoctorRegistration regDoctor = new DoctorRegistration();
                 app.setScene(regDoctor.getView(app));
             }
         });
@@ -299,7 +299,7 @@ public class GenerateBill {
         createApptBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                CreateAppointment createApp = new CreateAppointment();
+                AppointmentManager createApp = new AppointmentManager();
                 app.setScene(createApp.getView(app, new Admin()));
             }
         });
@@ -308,8 +308,8 @@ public class GenerateBill {
         medHistoryBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                AddMedicalHistory addMedicHistory = new AddMedicalHistory();
-                app.setScene(addMedicHistory.getView(app));
+                MedicalHistoryManager addMedicHistory = new MedicalHistoryManager();
+                app.setScene(addMedicHistory.getView(app, new Admin()));
             }
         });
         

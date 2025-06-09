@@ -25,11 +25,11 @@ public class PatientRegistration
     public Parent getView(MainAppClinic app)
     {
         //Clinic banner
-        // Load an image (from URL or local resource)
-        Image image = new Image("file:C:/Users/User/Downloads/PatientRegBan.png");
+        // Load an image
+        Image image = new Image("file:/Users/aisyahhafizar/Downloads/3.png");
         ImageView bannerPatient = new ImageView(image);
         bannerPatient.setFitHeight(200);
-        bannerPatient.setFitWidth(1290);
+        bannerPatient.setFitWidth(1400);
 
         //add banner
         HBox banner = new HBox();
@@ -157,7 +157,7 @@ public class PatientRegistration
 
                 area.setText(msg);
 
-                String fileLine = id + "\n" + name + "\n" + number + "\n" + patientGender + "\n" + patientAge + "\n";
+                String fileLine = id + "\n" + name + "\n" + number + "\n" + patientGender + "\n" + patientAge + "";
 
                 // to text file
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter("patients.txt", true)))
@@ -167,7 +167,7 @@ public class PatientRegistration
                 }
                 catch (IOException e)
                 {
-                    System.err.println("Error writing to file: " + e.getMessage());
+                    System.out.println("Error writing to file: " + e.getMessage());
                 }
             }
         });

@@ -1,5 +1,6 @@
 package ClinicManagement;
 
+import javafx.geometry.HPos;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -14,198 +15,311 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Scanner;
 
-// ... (same import and package statements)
+public class AppointmentManager
+{
+    public Parent getView(MainAppClinic app, Admin admin)
+    {
 
-public class AppointmentManager {
+        // Clinic banner
+        Image image = new Image("file:/Users/aisyahhafizar/Downloads/4.png");
+        ImageView banner = new ImageView(image);
+        banner.setFitHeight(200);
+        banner.setFitWidth(1400);
 
-    public Parent getView(MainAppClinic app, Admin admin) {
+        //add banner
+        HBox banners = new HBox();
+        banners.setAlignment(Pos.CENTER);
+        banners.setPadding(new Insets(30));
+        banners.setMaxWidth(Double.MAX_VALUE); // Let it expand fully
 
-        // Banner section
-        Image image = new Image("file:C:/Users/User/Downloads/ApptManagerBan.png");
-        ImageView bannerAppt = new ImageView(image);
-        bannerAppt.setFitHeight(200);
-        bannerAppt.setFitWidth(1340);
+        // Main form grid
+        /*GridPane grid = new GridPane();
+        grid.setVgap(15);
+        grid.setHgap(10);
+        grid.setAlignment(Pos.TOP_CENTER);
+        grid.setPadding(new Insets(30));*/
 
-        HBox banner = new HBox(bannerAppt);
-        banner.setAlignment(Pos.CENTER);
-        banner.setPadding(new Insets(30));
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setPrefWidth(650);
 
-        // Appointment input form
-        GridPane formGrid = new GridPane();
-        formGrid.setAlignment(Pos.TOP_LEFT);
-        formGrid.setHgap(15);
-        formGrid.setVgap(15);
-        formGrid.setPadding(new Insets(20));
+        // Labels
+        Label appointmentID = new Label("Appointment ID : ");
+        Label patientName = new Label("Patient Name : ");
+        Label doctorName = new Label("Doctor Name : ");
+        Label date = new Label("Date : ");
 
-        Label lblApptID = new Label("Appointment ID : ");
-        Label lblPatient = new Label("Patient Name : ");
-        Label lblDoctor = new Label("Doctor Name : ");
-        Label lblDate = new Label("Date : ");
+        appointmentID.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        patientName.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        doctorName.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        date.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
-        lblApptID.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        lblPatient.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        lblDoctor.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        lblDate.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-
-        TextField txtApptID = new TextField();
-        txtApptID.setPromptText("Enter Appointment ID");
-        txtApptID.setPrefWidth(250);
+        // Fields
+        TextField IDTextField = new TextField();
+        IDTextField.setPromptText("Enter Appointment ID");
+        IDTextField.setPrefWidth(500);
 
         ComboBox<String> cbPatient = new ComboBox<>();
         cbPatient.setPromptText("Select Patient");
-        for (Patient p : admin.getAllPatients()) {
-            cbPatient.getItems().add(p.getName());
+        try (Scanner scanner = new Scanner(new File("patients.txt"))) {
+            while (scanner.hasNextLine()) {
+                String id = scanner.nextLine().trim();         // P001
+                if (!scanner.hasNextLine()) break;
+                String name = scanner.nextLine().trim();       // Ali Bin Abu
+                if (!scanner.hasNextLine()) break;
+                String phone = scanner.nextLine().trim();      // 0123456789
+                if (!scanner.hasNextLine()) break;
+                String gender = scanner.nextLine().trim();     // Male
+                if (!scanner.hasNextLine()) break;
+                String age = scanner.nextLine().trim();        // 25
+
+                cbPatient.getItems().add(id + " - " + name);
+            }
+        } 
+        catch (FileNotFoundException e) 
+        {
+            System.out.println("patients.txt not found.");
         }
 
         ComboBox<String> cbDoctor = new ComboBox<>();
         cbDoctor.setPromptText("Select Doctor");
-        for (Doctor d : admin.getAllDoctors()) {
-            cbDoctor.getItems().add(d.getName());
+        
+        try (Scanner scanner = new Scanner(new File("doctors.txt"))) 
+        {
+            while (scanner.hasNextLine()) 
+            {
+                String id = scanner.nextLine().trim();         // D001
+                if (!scanner.hasNextLine()) break;
+                String name = scanner.nextLine().trim();       // Dr. Salina
+                if (!scanner.hasNextLine()) break;
+                String phone = scanner.nextLine().trim();      // 0159678324
+                if (!scanner.hasNextLine()) break;
+                String specialization = scanner.nextLine().trim(); // General
+                if (!scanner.hasNextLine()) break;
+                String rate = scanner.nextLine().trim();       // 97.0
+
+                cbDoctor.getItems().add(id + " - " + name);
+            }
+        } 
+        catch (FileNotFoundException e) 
+        {
+            System.out.println("doctors.txt not found.");
         }
 
-        DatePicker dpDate = new DatePicker();
+        DatePicker dates = new DatePicker();
+        dates.setPrefWidth(500);
+        
+        // Add to grid
+        grid.add(appointmentID, 0, 0);
+        grid.add(IDTextField, 0, 1);
 
-        formGrid.add(lblApptID, 0, 0);
-        formGrid.add(txtApptID, 1, 0);
-        formGrid.add(lblPatient, 0, 1);
-        formGrid.add(cbPatient, 1, 1);
-        formGrid.add(lblDoctor, 0, 2);
-        formGrid.add(cbDoctor, 1, 2);
-        formGrid.add(lblDate, 0, 3);
-        formGrid.add(dpDate, 1, 3);
+        grid.add(patientName, 0, 2);
+        grid.add(cbPatient, 0, 3);
 
-        Button btnCreate = new Button("Create");
+        grid.add(doctorName, 0, 4);
+        grid.add(cbDoctor, 0, 5);
+
+        grid.add(date, 0, 6);
+        grid.add(dates, 0, 7);
+
+        // Buttons
+        /*Button btnCreate = new Button("Create");
         Button btnCancel = new Button("Cancel");
-
         btnCreate.setStyle("-fx-font-size: 16px;");
-        btnCancel.setStyle("-fx-font-size: 16px;");
+        btnCancel.setStyle("-fx-font-size: 16px;");*/
 
-        HBox buttonBox = new HBox(20, btnCancel, btnCreate);
-        buttonBox.setAlignment(Pos.CENTER_RIGHT);
-        buttonBox.setPadding(new Insets(10, 0, 0, 0));
-        formGrid.add(buttonBox, 1, 4);
+        HBox buttonBox = new HBox(10); // spacing between buttons
+        buttonBox.setAlignment(Pos.BOTTOM_RIGHT); // align buttons to the left
+        Button btnCreate = new Button("Register");
+        Button btnCancel = new Button("Cancel");
+        buttonBox.getChildren().addAll(btnCancel,btnCreate);
+        grid.add(buttonBox, 0, 10, 2, 1); //i2=going right i3=going down
 
-        final Text actionMessage = new Text();
-        formGrid.add(actionMessage, 1, 5);
-        GridPane.setMargin(actionMessage, new Insets(10, 0, 0, 0));
+        /*HBox btnBox = new HBox(15);
+        btnBox.setAlignment(Pos.CENTER_RIGHT);
+        btnBox.setPadding(new Insets(10, 0, 0, 0));
+        btnBox.getChildren().addAll(btnCancel, btnCreate);
+        grid.add(btnBox, 1, 4);*/
 
-        // Output Section
-        VBox infoBox = new VBox(15);
-        infoBox.setAlignment(Pos.TOP_LEFT);
-        infoBox.setPadding(new Insets(10));
+        // Action text
+        /*final Text actiontarget = new Text();
+        grid.add(actiontarget, 1, 5);
+        GridPane.setMargin(actiontarget, new Insets(5, 0, 0, 0));*/
 
-        Label lblOutput = new Label("Appointment Information");
-        lblOutput.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        final Text actiontarget = new Text();
+        grid.add(actiontarget, 0, 11, 2, 1);
+        GridPane.setHalignment(actiontarget, HPos.RIGHT);
+        grid.setPrefWidth(600);
 
-        TextArea txtOutput = new TextArea();
-        txtOutput.setEditable(false);
-        txtOutput.setPrefSize(400, 400);
+        // Right-side information box
+        VBox infoBox = new VBox(10);
+        //infoBox.setAlignment(Pos.TOP_LEFT);
+        Label view = new Label("Appointment Information");
+        view.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        grid.add(view, 0, 12);
 
-        infoBox.getChildren().addAll(lblOutput, txtOutput);
 
-        // Sidebar Menu
-        VBox sideMenu = new VBox(15);
-        sideMenu.setPadding(new Insets(20, 10, 20, 20));
-        sideMenu.setPrefWidth(200);
+        TextArea outputArea = new TextArea();
+        outputArea.setPrefSize(500, 300);
+        //outputArea.setEditable(false);
+        infoBox.getChildren().addAll(view, outputArea);
 
+        // Button actions
+        btnCreate.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String id = IDTextField.getText().trim();
+                String patientName = cbPatient.getValue();
+                String doctorName = cbDoctor.getValue();
+                LocalDate localDate = dates.getValue();
+
+                if (id.isEmpty() || patientName == null || doctorName == null || localDate == null) {
+                    actiontarget.setFill(Color.RED);
+                    actiontarget.setText("Please fill all fields");
+                    return;
+                }
+
+                Date appointmentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+                Patient selectedPatient = null;
+                for (Patient p : admin.getAllPatients()) {
+                    if (p.getName().equals(patientName)) {
+                        selectedPatient = p;
+                        break;
+                    }
+                }
+
+                Doctor selectedDoctor = null;
+                for (Doctor d : admin.getAllDoctors()) {
+                    if (d.getName().equals(doctorName)) {
+                        selectedDoctor = d;
+                        break;
+                    }
+                }
+
+                if (selectedDoctor == null || selectedPatient == null) {
+                    actiontarget.setFill(Color.RED);
+                    actiontarget.setText("Selected patient or doctor not found");
+                    return;
+                }
+
+                Appointment appointment = new Appointment(id, appointmentDate, "Scheduled", selectedPatient, selectedDoctor);
+                admin.addAppointment(appointment);
+                admin.dataToTextFiles();
+
+                actiontarget.setFill(Color.LIGHTGREEN);
+                actiontarget.setText("Appointment saved successfully!");
+
+                String details = "📅 Appointment Details\n"
+                        + "------------------------\n"
+                        + "Appointment ID : " + id + "\n"
+                        + "Patient Name   : " + selectedPatient.getName() + "\n"
+                        + "Doctor Name    : " + selectedDoctor.getName() + "\n"
+                        + "Date           : " + localDate + "\n"
+                        + "Status         : Scheduled";
+
+                outputArea.setText(details);
+
+                IDTextField.clear();
+                cbPatient.setValue(null);
+                cbDoctor.setValue(null);
+                dates.setValue(null);
+            }
+        });
+
+        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                IDTextField.clear();
+                cbPatient.setValue(null);
+                cbDoctor.setValue(null);
+                dates.setValue(null);
+                outputArea.clear();
+                actiontarget.setFill(Color.DARKRED);
+                actiontarget.setText("Appointment creation cancelled.");
+            }
+        });
+
+        // Side navigation buttons
+        /*VBox sideBtns = new VBox(15);
+        sideBtns.setPadding(new Insets(20));
+        sideBtns.setAlignment(Pos.TOP_CENTER);*/
+
+        VBox sideBtns = new VBox(10);
+        sideBtns.setPrefWidth(180);
+        sideBtns.setPadding(new Insets(10));
+        sideBtns.setAlignment(Pos.TOP_LEFT);
+
+        String btnStyle = "-fx-font-size: 14px; -fx-min-width: 200px; -fx-min-height: 50px";
         Button btnRegPatient = new Button("Patient Registration");
         Button btnRegDoctor = new Button("Doctor Registration");
         Button btnAddMed = new Button("Medical History Manager");
         Button btnGenBill = new Button("Bill Generator");
         Button btnHome = new Button("Main Page");
 
-        String btnStyle = "-fx-font-size: 14px; -fx-min-width: 180px; -fx-min-height: 45px";
         btnRegPatient.setStyle(btnStyle);
         btnRegDoctor.setStyle(btnStyle);
         btnAddMed.setStyle(btnStyle);
         btnGenBill.setStyle(btnStyle);
         btnHome.setStyle(btnStyle);
 
-        sideMenu.getChildren().addAll(btnRegPatient, btnRegDoctor, btnAddMed, btnGenBill, btnHome);
+        sideBtns.getChildren().addAll(btnRegPatient, btnRegDoctor, btnAddMed, btnGenBill, btnHome);
 
-        // Button navigation
-        btnRegPatient.setOnAction(e -> app.setScene(new PatientRegistration().getView(app)));
-        btnRegDoctor.setOnAction(e -> app.setScene(new DoctorRegistration().getView(app)));
-        btnAddMed.setOnAction(e -> app.setScene(new MedicalHistoryManager().getView(app, admin)));
-        btnGenBill.setOnAction(e -> app.setScene(new BillGenerator().getView(app, admin)));
+        // Button navigation logic
+        btnRegPatient.setOnAction(e -> {
+            PatientRegistration registerPatient = new PatientRegistration();
+            app.setScene(registerPatient.getView(app));
+        });
+
+        btnRegDoctor.setOnAction(e -> {
+            DoctorRegistration doctorPanel = new DoctorRegistration();
+            app.setScene(doctorPanel.getView(app));
+        });
+
+        btnAddMed.setOnAction(e -> {
+            MedicalHistoryManager addMedicHistory = new MedicalHistoryManager();
+            app.setScene(addMedicHistory.getView(app, admin));
+        });
+
+        btnGenBill.setOnAction(e -> {
+            BillGenerator genBill = new BillGenerator();
+            app.setScene(genBill.getView(app, admin));
+        });
+
         btnHome.setOnAction(e -> app.setScene(app.getDashboard()));
 
-        // Create button logic
-        btnCreate.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent arg0) {
-                String id = txtApptID.getText().trim();
-                String patName = cbPatient.getValue();
-                String docName = cbDoctor.getValue();
-                LocalDate selectedDate = dpDate.getValue();
+        HBox form = new HBox(30);
+        form.getChildren().addAll(grid);
+        form.setAlignment(Pos.TOP_CENTER);
 
-                if (id.isEmpty() || patName == null || docName == null || selectedDate == null) {
-                    actionMessage.setFill(Color.RED);
-                    actionMessage.setText("Please fill all fields");
-                    return;
-                }
+        HBox info = new HBox(30);
+        info.getChildren().add(infoBox);
+        form.setAlignment(Pos.TOP_RIGHT);
 
-                Date apptDate = Date.from(selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-                Patient selectedPatient = admin.getAllPatients().stream()
-                        .filter(p -> p.getName().equals(patName))
-                        .findFirst().orElse(null);
+        /*HBox contentLayout = new HBox(30);
+        contentLayout.setPadding(new Insets(30));
+        contentLayout.getChildren().addAll(sideBtns, grid, infoBox);*/
 
-                Doctor selectedDoctor = admin.getAllDoctors().stream()
-                        .filter(d -> d.getName().equals(docName))
-                        .findFirst().orElse(null);
+        HBox contentLayout = new HBox(30);
+        contentLayout.setPadding(new Insets(20));
+        contentLayout.getChildren().addAll(sideBtns, grid,infoBox);
+        contentLayout.setAlignment(Pos.CENTER_LEFT);
 
-                if (selectedPatient == null || selectedDoctor == null) {
-                    actionMessage.setFill(Color.RED);
-                    actionMessage.setText("Selected patient or doctor not found");
-                    return;
-                }
+        VBox fullLayout = new VBox(10);
+        fullLayout.getChildren().addAll(banner, contentLayout);
+        fullLayout.setPadding(new Insets(10));
 
-                Appointment appointment = new Appointment(id, apptDate, "Scheduled", selectedPatient, selectedDoctor);
-                admin.addAppointment(appointment);
-                admin.dataToTextFiles();
-
-                actionMessage.setFill(Color.GREEN);
-                actionMessage.setText("Appointment saved successfully!");
-
-                txtOutput.setText("📅 Appointment Details\n"
-                        + "------------------------\n"
-                        + "Appointment ID : " + id + "\n"
-                        + "Patient Name   : " + patName + "\n"
-                        + "Doctor Name    : " + docName + "\n"
-                        + "Date           : " + selectedDate + "\n"
-                        + "Status         : Scheduled");
-
-                txtApptID.clear();
-                cbPatient.setValue(null);
-                cbDoctor.setValue(null);
-                dpDate.setValue(null);
-            }
-        });
-
-        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent arg0) {
-                txtApptID.clear();
-                cbPatient.setValue(null);
-                cbDoctor.setValue(null);
-                dpDate.setValue(null);
-                txtOutput.clear();
-                actionMessage.setFill(Color.DARKRED);
-                actionMessage.setText("Appointment creation cancelled.");
-            }
-        });
-
-        // Main layout
-        HBox content = new HBox(30, sideMenu, formGrid, infoBox);
-        content.setPadding(new Insets(20));
-        content.setAlignment(Pos.TOP_CENTER);
-
-        VBox root = new VBox(10, banner, content);
-        root.setPadding(new Insets(10));
-
-        return root;
+        return fullLayout;
     }
 }

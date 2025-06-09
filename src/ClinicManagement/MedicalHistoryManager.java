@@ -1,9 +1,6 @@
-
 package ClinicManagement;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
@@ -18,8 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
 import java.time.LocalDate;
+import java.util.Scanner;
 
 import javafx.geometry.HPos;
 
@@ -32,11 +29,11 @@ public class MedicalHistoryManager
     public Parent getView (MainAppClinic app, Admin admin)
     {
         //Load an image (from URL or local resource)
-        Image image = new Image("file:C:/Users/User/Downloads/MedHisBan.png");
+        Image image = new Image("file:/Users/aisyahhafizar/Downloads/5.png");
         ImageView bannerMedicalHistory = new ImageView(image);
         bannerMedicalHistory.setFitHeight(200);
-        bannerMedicalHistory.setFitWidth(1290);
-        
+        bannerMedicalHistory.setFitWidth(1400);
+
         //add banner
         HBox banner = new HBox();
         banner.setAlignment(Pos.CENTER);
@@ -53,15 +50,29 @@ public class MedicalHistoryManager
         grid.setPadding(new Insets(25, 25, 25, 25));
         grid.setPrefWidth(650);
 
-        
+
         //list of patients
         Label ptList = new Label("List of Patients:");
         ptList.setFont(Font.font("Arial", FontWeight.BOLD,15));
         grid.add(ptList, 0, 0);
         ComboBox<String> patient = new ComboBox<>();
         patient.setPromptText("Select Patient");
-        for(Patient p : admin.getAllPatients()){
-            patient.getItems().add(p.getName());
+        try (Scanner scanner = new Scanner(new File("patients.txt"))) {
+            while (scanner.hasNextLine()) {
+                String id = scanner.nextLine().trim();         // P001
+                if (!scanner.hasNextLine()) break;
+                String name = scanner.nextLine().trim();       // Ali Bin Abu
+                if (!scanner.hasNextLine()) break;
+                String phone = scanner.nextLine().trim();      // 0123456789
+                if (!scanner.hasNextLine()) break;
+                String gender = scanner.nextLine().trim();     // Male
+                if (!scanner.hasNextLine()) break;
+                String age = scanner.nextLine().trim();        // 25
+
+                patient.getItems().add(id + " - " + name);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("patients.txt not found.");
         }
         grid.add(patient, 0, 1);
 
@@ -71,8 +82,22 @@ public class MedicalHistoryManager
         grid.add(docList, 0, 2);
         ComboBox<String> doctor = new ComboBox<>();
         doctor.setPromptText("Select Doctor");
-        for(Doctor d : admin.getAllDoctors()){
-            doctor.getItems().add(d.getName());
+        try (Scanner scanner = new Scanner(new File("doctors.txt"))) {
+            while (scanner.hasNextLine()) {
+                String id = scanner.nextLine().trim();         // D001
+                if (!scanner.hasNextLine()) break;
+                String name = scanner.nextLine().trim();       // Dr. Salina
+                if (!scanner.hasNextLine()) break;
+                String phone = scanner.nextLine().trim();      // 0159678324
+                if (!scanner.hasNextLine()) break;
+                String specialization = scanner.nextLine().trim(); // General
+                if (!scanner.hasNextLine()) break;
+                String rate = scanner.nextLine().trim();       // 97.0
+
+                doctor.getItems().add(id + " - " + name);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("doctors.txt not found.");
         }
         grid.add(doctor,0, 3);
 
@@ -102,8 +127,8 @@ public class MedicalHistoryManager
         dates.setPromptText("Choose Date");
         dates.setPrefWidth(500);
         grid.add(dates, 0, 9);
-        
-        //display medical history information 
+
+        //display medical history information
         VBox infoBox = new VBox(10);
         Label view = new Label("Medical History Information");
         view.setFont(Font.font("Arial", FontWeight.BOLD,15));
@@ -112,14 +137,14 @@ public class MedicalHistoryManager
         TextArea area = new TextArea();
         area.setPrefSize(500, 300);
         infoBox.getChildren().addAll(view,area);
-        
+
         HBox buttonBox = new HBox(10); // spacing between buttons
         buttonBox.setAlignment(Pos.BOTTOM_RIGHT); // align buttons to the left
         Button btnAdd = new Button("Add");
         Button btnCancel = new Button("Cancel");
         buttonBox.getChildren().addAll(btnCancel,btnAdd);
         grid.add(buttonBox, 0, 14, 2, 1); //i2=going right i3=going down
-        
+
         //action for add and cancel button
         final Text actionTarget = new Text();
         grid.add(actionTarget, 0, 15, 2, 1);
@@ -141,7 +166,7 @@ public class MedicalHistoryManager
                 actionTarget.setText("Registration is Cancelled");
             }
         });
-        
+
         btnAdd.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -157,7 +182,7 @@ public class MedicalHistoryManager
                     actionTarget.setText("Please fill in all fields.");
                     return;
                 }
-
+/*
                 // Find the matching Patient and Doctor
                 Patient selectedPatient = null;
                 for (Patient p : admin.getAllPatients()) {
@@ -180,19 +205,19 @@ public class MedicalHistoryManager
                     actionTarget.setText("Selected patient or doctor not found.");
                     return;
                 }
-
+*/
                 String formattedDate = selectedDate.toString();
-
+/*
                 // Create MedicalHistory object
-                MedicalHistory medicalHistory = new MedicalHistory(selectedPatient, selectedDoctor, diagnosisText, prescriptionText, formattedDate
+                MedicalHistory medicalHistory = new MedicalHistory(selectedPatientName, selectedDoctorName, diagnosisText, prescriptionText, formattedDate
                 );
-
+*/
                 // Display values in TextArea
-                String msg = "Patient: " + selectedPatient.getName() + "\n"
-                           + "Doctor: " + selectedDoctor.getName() + "\n"
-                           + "Diagnosis: " + diagnosisText + "\n"
-                           + "Prescription: " + prescriptionText + "\n"
-                           + "Date: " + formattedDate + "\n";
+                String msg = "Patient: " + selectedPatientName + "\n"
+                        + "Doctor: " + selectedDoctorName + "\n"
+                        + "Diagnosis: " + diagnosisText + "\n"
+                        + "Prescription: " + prescriptionText + "\n"
+                        + "Date: " + formattedDate + "\n";
                 area.setText(msg);
 
                 // Show confirmation message
@@ -200,17 +225,17 @@ public class MedicalHistoryManager
                 actionTarget.setText("Medical History Added Successfully");
 
                 // Save to file
-                String fileLine = selectedPatient.getName() + "\n"
-                                + selectedDoctor.getName() + "\n"
-                                + diagnosisText + "\n"
-                                + prescriptionText + "\n"
-                                + formattedDate + "\n";
+                String fileLine = selectedPatientName + "\n"
+                        + selectedDoctorName + "\n"
+                        + diagnosisText + "\n"
+                        + prescriptionText + "\n"
+                        + formattedDate + "\n";
 
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter("medical_history.txt", true))) {
                     writer.write(fileLine);
                     writer.newLine();
-                } 
-                
+                }
+
                 catch (IOException ex) {
                     System.err.println("Error writing to file: " + ex.getMessage());
                 }
@@ -289,13 +314,13 @@ public class MedicalHistoryManager
         HBox info = new HBox(30);
         info.getChildren().add(infoBox);
         form.setAlignment(Pos.TOP_RIGHT);
-        
+
         //buttons at the side
         VBox sideBtns = new VBox(10);
         sideBtns.setPrefWidth(180);
         sideBtns.setPadding(new Insets(10));
         sideBtns.setAlignment(Pos.TOP_LEFT);
-        
+
         //size of letters, size of buttons
         btnRegPatient.setStyle("-fx-font-size: 14px; -fx-min-width: 200px; -fx-min-height: 50px");
         btnRegDoctor.setStyle("-fx-font-size: 14px; -fx-min-width: 200px; -fx-min-height: 50px");
@@ -311,9 +336,9 @@ public class MedicalHistoryManager
         sideBtns.getChildren().addAll(btnRegPatient, btnRegDoctor, btnCreateAppt, btnGenBill, btnHome);
 
         VBox fullLayout = new VBox(10);
-        fullLayout.getChildren().addAll(banner, contentLayout);
+        fullLayout.getChildren().addAll(bannerMedicalHistory, contentLayout);
         fullLayout.setPadding(new Insets(10));
-        
+
         return fullLayout;
     }
 }

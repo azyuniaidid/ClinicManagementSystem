@@ -37,6 +37,7 @@ public class MainAppClinic extends Application {
         scene = new Scene(root, 1000, 600);
         primaryStage.setTitle("Clinic Appointment and Management System");
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(true); //makes it big right away
         primaryStage.show();
     }
 

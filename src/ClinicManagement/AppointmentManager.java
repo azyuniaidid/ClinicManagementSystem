@@ -15,8 +15,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -85,18 +84,18 @@ public class AppointmentManager
 
                 cbPatient.getItems().add(id + " - " + name);
             }
-        } 
-        catch (FileNotFoundException e) 
+        }
+        catch (FileNotFoundException e)
         {
             System.out.println("patients.txt not found.");
         }
 
         ComboBox<String> cbDoctor = new ComboBox<>();
         cbDoctor.setPromptText("Select Doctor");
-        
-        try (Scanner scanner = new Scanner(new File("doctors.txt"))) 
+
+        try (Scanner scanner = new Scanner(new File("doctors.txt")))
         {
-            while (scanner.hasNextLine()) 
+            while (scanner.hasNextLine())
             {
                 String id = scanner.nextLine().trim();         // D001
                 if (!scanner.hasNextLine()) break;
@@ -110,15 +109,15 @@ public class AppointmentManager
 
                 cbDoctor.getItems().add(id + " - " + name);
             }
-        } 
-        catch (FileNotFoundException e) 
+        }
+        catch (FileNotFoundException e)
         {
             System.out.println("doctors.txt not found.");
         }
 
         DatePicker dates = new DatePicker();
         dates.setPrefWidth(500);
-        
+
         // Add to grid
         grid.add(appointmentID, 0, 0);
         grid.add(IDTextField, 0, 1);
@@ -179,21 +178,21 @@ public class AppointmentManager
             @Override
             public void handle(ActionEvent actionEvent) {
                 String id = IDTextField.getText().trim();
-                String patientName = cbPatient.getValue();
-                String doctorName = cbDoctor.getValue();
+                String selectedPatientName = cbPatient.getValue();
+                String selectedDoctorName = cbDoctor.getValue();
                 LocalDate localDate = dates.getValue();
 
-                if (id.isEmpty() || patientName == null || doctorName == null || localDate == null) {
+                if (id.isEmpty() || selectedPatientName == null || selectedDoctorName == null || localDate == null) {
                     actiontarget.setFill(Color.RED);
                     actiontarget.setText("Please fill all fields");
                     return;
                 }
 
                 Date appointmentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
+/*
                 Patient selectedPatient = null;
                 for (Patient p : admin.getAllPatients()) {
-                    if (p.getName().equals(patientName)) {
+                    if (p.getPatientID().equals(patientID)) {
                         selectedPatient = p;
                         break;
                     }
@@ -207,15 +206,19 @@ public class AppointmentManager
                     }
                 }
 
-                if (selectedDoctor == null || selectedPatient == null) {
-                    actiontarget.setFill(Color.RED);
-                    actiontarget.setText("Selected patient or doctor not found");
-                    return;
+                for (Doctor d : admin.getAllDoctors()) {
+                    if (d.getDoctorID().equals(doctorID)) {
+                        selectedDoctor = d;
+                        break;
+                    }
                 }
-
-                Appointment appointment = new Appointment(id, appointmentDate, "Scheduled", selectedPatient, selectedDoctor);
+*/
+                /*
+                Appointment appointment = new Appointment(id, appointmentDate, "Scheduled", selectedPatientName, selectedDoctorName);
                 admin.addAppointment(appointment);
                 admin.dataToTextFiles();
+
+                 */
 
                 actiontarget.setFill(Color.LIGHTGREEN);
                 actiontarget.setText("Appointment saved successfully!");
@@ -223,12 +226,27 @@ public class AppointmentManager
                 String details = "📅 Appointment Details\n"
                         + "------------------------\n"
                         + "Appointment ID : " + id + "\n"
-                        + "Patient Name   : " + selectedPatient.getName() + "\n"
-                        + "Doctor Name    : " + selectedDoctor.getName() + "\n"
+                        + "Patient Name   : " + selectedPatientName+ "\n"
+                        + "Doctor Name    : " + selectedDoctorName+ "\n"
                         + "Date           : " + localDate + "\n"
                         + "Status         : Scheduled";
 
                 outputArea.setText(details);
+
+                String fileLine = id + "\n" + selectedPatientName + "\n" + selectedDoctorName + "\n" + localDate + "\n" + "Scheduled" + "";
+
+                // to text file
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter("appointments.txt", true)))
+                {
+                    writer.write(fileLine);
+                    writer.newLine();
+                }
+                catch (IOException e)
+                {
+                    System.out.println("Error writing to file: " + e.getMessage());
+                }
+
+                System.out.println("Appointments instance has been created");
 
                 IDTextField.clear();
                 cbPatient.setValue(null);
@@ -276,27 +294,46 @@ public class AppointmentManager
         sideBtns.getChildren().addAll(btnRegPatient, btnRegDoctor, btnAddMed, btnGenBill, btnHome);
 
         // Button navigation logic
-        btnRegPatient.setOnAction(e -> {
-            PatientRegistration registerPatient = new PatientRegistration();
-            app.setScene(registerPatient.getView(app));
+        btnRegPatient.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                PatientRegistration registerPatient = new PatientRegistration();
+                app.setScene(registerPatient.getView(app));
+            }
         });
 
-        btnRegDoctor.setOnAction(e -> {
-            DoctorRegistration doctorPanel = new DoctorRegistration();
-            app.setScene(doctorPanel.getView(app));
+        btnRegDoctor.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event)
+            {
+                DoctorRegistration doctorPanel = new DoctorRegistration();
+                app.setScene(doctorPanel.getView(app));
+            }
         });
 
-        btnAddMed.setOnAction(e -> {
-            MedicalHistoryManager addMedicHistory = new MedicalHistoryManager();
-            app.setScene(addMedicHistory.getView(app, admin));
+        btnAddMed.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MedicalHistoryManager addMedicHistory = new MedicalHistoryManager();
+                app.setScene(addMedicHistory.getView(app, new Admin()));
+            }
         });
 
-        btnGenBill.setOnAction(e -> {
-            BillGenerator genBill = new BillGenerator();
-            app.setScene(genBill.getView(app, admin));
+        btnGenBill.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                BillGenerator genBill = new BillGenerator();
+                app.setScene(genBill.getView(app,new Admin()));
+            }
         });
 
-        btnHome.setOnAction(e -> app.setScene(app.getDashboard()));
+        btnHome.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e)
+            {
+                app.setScene(app.getDashboard());
+            }
+        });
 
         HBox form = new HBox(30);
         form.getChildren().addAll(grid);

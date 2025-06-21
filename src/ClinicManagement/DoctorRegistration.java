@@ -83,7 +83,7 @@ public class DoctorRegistration {
             @Override
             public void handle(ActionEvent event) {
                 AppointmentManager createApp = new AppointmentManager();
-                app.setScene(createApp.getView(app, new Admin()));
+                app.setScene(createApp.getView(app));
             }
         });
 
@@ -92,7 +92,7 @@ public class DoctorRegistration {
             @Override
             public void handle(ActionEvent event) {
                 MedicalHistoryManager addMedicHistory = new MedicalHistoryManager();
-                app.setScene(addMedicHistory.getView(app, new Admin()));
+                app.setScene(addMedicHistory.getView(app));
             }
         });
 
@@ -101,7 +101,7 @@ public class DoctorRegistration {
             @Override
             public void handle(ActionEvent event) {
                 BillGenerator genBill = new BillGenerator();
-                app.setScene(genBill.getView(app,new Admin()));
+                app.setScene(genBill.getView(app));
             }
         });
 
@@ -244,6 +244,7 @@ public class DoctorRegistration {
                 phoneField.clear();
                 specializationBox.getSelectionModel().clearSelection();
                 chgperapptField.clear();
+                area.clear();
                 actionTarget.setText("Registration is Cancelled");
             }
         });

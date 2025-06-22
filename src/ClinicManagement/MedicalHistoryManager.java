@@ -163,6 +163,7 @@ public class MedicalHistoryManager
                 diagnosis.clear();
                 prescription.clear();
                 dates.setValue(null);
+                area.clear();
                 actionTarget.setText("Registration is Cancelled");
             }
         });

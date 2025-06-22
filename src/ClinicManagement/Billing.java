@@ -11,7 +11,7 @@ public class Billing {
     private Doctor doctor;
     
 
-    public Billing(String billID, double amount, String payMethod, Date date,  Patient patient, Doctor doctor) {
+    Billing(String billID, double amount, String payMethod, Date date,  Patient patient, Doctor doctor) {
         this.billID = billID;
         this.amount = amount;
         this.payMethod = payMethod;

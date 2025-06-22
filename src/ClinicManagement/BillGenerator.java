@@ -227,6 +227,7 @@ public class BillGenerator {
                 billBox.clear();
                 amountBox.clear();
                 date.setValue(null);
+                billArea.clear();
                 actionTarget.setText("Bill generator is cancelled");
             }
         });

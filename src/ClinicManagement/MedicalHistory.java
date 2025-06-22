@@ -7,14 +7,16 @@ public class MedicalHistory
   private String diagnosis;
   private String prescription;
   private String date;
+  private static ArrayList<MedicalHistory> historyList = new ArrayList<>();
 
-  MedicalHistory (Patient patient, Doctor doctor, String diagnosis, String prescription, String date)
+  public MedicalHistory (Patient patient, Doctor doctor, String diagnosis, String prescription, String date)
   {
     this.patient = patient;
     this.doctor = doctor;
     this.diagnosis = diagnosis;
     this.prescription = prescription;
     this.date = date;
+    historyList.add(this);
   }
 
   public Patient getPatient()
@@ -54,5 +56,10 @@ public class MedicalHistory
   public String toString()
   {
     return diagnosis + " " + prescription + " " + date;
+  }
+
+  public static ArrayList<MedicalHistory> getAllHistories()
+  {
+    return historyList;
   }
 }

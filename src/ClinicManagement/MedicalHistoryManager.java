@@ -17,13 +17,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import java.time.LocalDate;
 import java.util.Scanner;
-
 import javafx.geometry.HPos;
 
-/**
- *
- * @author Surface
- */
 public class MedicalHistoryManager
 {
     public Parent getView (MainAppClinic app, Admin admin)

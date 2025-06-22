@@ -147,7 +147,7 @@ public class PatientRegistration
                 String patientGender = genderBox.getValue();
 
                 //read age
-                String patientAge = age.getText();
+                int patientAge = ageBox.getValue();
 
                 String msg = "Patient ID :  " + id + "\n"
                         +"Patient Name : " + name + "\n"
@@ -169,6 +169,9 @@ public class PatientRegistration
                 {
                     System.out.println("Error writing to file: " + e.getMessage());
                 }
+
+                System.out.println("Patient instance has been created");
+
             }
         });
 
@@ -179,10 +182,22 @@ public class PatientRegistration
             public void handle(ActionEvent e)
             {
                 actiontarget.setFill(Color.RED);
+
                 ptid.setText(""); //text fields
+                ptid.clear();
+
+                patientName.clear();
                 patientName.setText("");
+
+                phoneNumber.clear();
                 phoneNumber.setText("");
+
+                genderBox.getSelectionModel().clearSelection();
+                ageBox.getSelectionModel().clearSelection();
+
+                area.clear();
                 actiontarget.setText("Registration is Cancelled");
+
             }
         });
 
